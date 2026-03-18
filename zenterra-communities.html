@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Communities — Zenterra Developments</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:        #F5F0E8;
+      --charcoal:     #1C1C1A;
+      --stone:        #8B8278;
+      --warm-white:   #FDFBF7;
+      --gold:         #B8955A;
+      --gold-light:   #D4B07A;
+      --light-border: #E2DAD0;
+      --nav-h:        84px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────── NAV ─────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 0 56px;
+      z-index: 200;
+      background: rgba(253,251,247,0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--light-border);
+      box-sizing: border-box;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif !important;
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--charcoal) !important;
+      text-decoration: none !important;
+      flex-shrink: 0;
+    }
+
+    .nav-center {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 36px;
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .nav-center > li {
+      position: relative;
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .nav-center > li > a {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      color: var(--charcoal) !important;
+      text-decoration: none !important;
+      opacity: 0.65;
+      transition: opacity 0.2s;
+      display: flex !important;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 0;
+    }
+    .nav-center > li > a:hover { opacity: 1; }
+    .nav-center > li > a.active { opacity: 1; color: var(--gold) !important; }
+
+    /* Dropdown */
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 16px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      background: var(--warm-white);
+      border: 1px solid var(--light-border);
+      min-width: 200px;
+      padding: 8px 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+      z-index: 300;
+    }
+    .nav-center > li:hover .dropdown {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown a {
+      display: block !important;
+      padding: 10px 20px !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 400 !important;
+      color: var(--charcoal) !important;
+      text-decoration: none !important;
+      opacity: 0.7;
+      transition: opacity 0.15s, padding-left 0.15s;
+    }
+    .dropdown a:hover { opacity: 1; padding-left: 26px !important; background: var(--cream); }
+    .dropdown-divider { height: 1px; background: var(--light-border); margin: 6px 0; }
+
+    .nav-right {
+      display: flex !important;
+      align-items: center !important;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .nav-register {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      color: var(--warm-white) !important;
+      background: var(--charcoal) !important;
+      padding: 11px 26px !important;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      display: inline-block !important;
+    }
+    .nav-register:hover { background: var(--gold) !important; }
+
+    /* Nav close button (register page) */
+    .nav-close {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--stone) !important;
+      text-decoration: none !important;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .nav-close:hover { color: var(--charcoal) !important; }
+    .nav-close-x {
+      width: 28px; height: 28px;
+      border: 1px solid var(--light-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+
+    /* ─── HERO ─── */
+    .hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #2e2b25 0%, #1a1816 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-bg-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: rgba(253,251,247,0.15);
+      letter-spacing: 0.06em;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(28,28,26,0.85) 0%, rgba(28,28,26,0.2) 60%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 56px 72px;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 6vw, 88px);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--warm-white);
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
+    .hero h1 em { font-style: italic; color: rgba(253,251,247,0.45); }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(253,251,247,0.6);
+      max-width: 460px;
+      margin-bottom: 48px;
+    }
+
+    /* Scroll filter strip */
+    .hero-filter-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(253,251,247,0.4);
+      margin-right: 4px;
+    }
+
+    .filter-chip {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      padding: 8px 18px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.06);
+      color: rgba(253,251,247,0.65);
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(6px);
+    }
+    .filter-chip:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .filter-chip.active { border-color: var(--gold); background: var(--gold); color: var(--charcoal); }
+
+    .filter-divider {
+      width: 1px; height: 24px;
+      background: rgba(255,255,255,0.15);
+      margin: 0 4px;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      right: 56px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(253,251,247,0.35);
+      z-index: 2;
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: rgba(253,251,247,0.25);
+    }
+
+    /* ─── SECTION COMMON ─── */
+    .section { padding: 96px 56px; }
+    .section-sm { padding: 64px 56px; }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    h2.section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3vw, 48px);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+    h2.section-title em { font-style: italic; color: var(--stone); }
+
+    .section-body {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--stone);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      gap: 32px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--warm-white); background: var(--charcoal);
+      padding: 14px 32px; text-decoration: none;
+      transition: background 0.25s;
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { background: var(--gold); }
+
+    .btn-ghost {
+      display: inline-block;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--charcoal); text-decoration: none;
+      border-bottom: 1px solid var(--charcoal);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ─── STICKY FILTER BAR ─── */
+    .sticky-filters {
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 100;
+      background: rgba(253,251,247,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--light-border);
+      padding: 16px 56px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .sticky-filter-chip {
+      font-size: 12px; font-weight: 400;
+      letter-spacing: 0.06em;
+      padding: 7px 16px;
+      border: 1px solid var(--light-border);
+      background: transparent;
+      color: var(--stone);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .sticky-filter-chip:hover { border-color: var(--charcoal); color: var(--charcoal); }
+    .sticky-filter-chip.active { border-color: var(--charcoal); background: var(--charcoal); color: var(--warm-white); }
+
+    .sticky-divider { width: 1px; height: 24px; background: var(--light-border); margin: 0 4px; }
+
+    .result-count {
+      margin-left: auto;
+      font-size: 12px; font-weight: 300;
+      color: var(--stone); letter-spacing: 0.04em;
+    }
+
+    /* ─── FEATURED COMMUNITY ─── */
+    .featured-section { background: var(--warm-white); }
+
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 0;
+      overflow: hidden;
+      border: 1px solid var(--light-border);
+    }
+
+    .featured-image {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: linear-gradient(160deg, #e4dbd0, #c0b5a4);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 15px;
+      color: rgba(139,130,120,0.5);
+    }
+    .featured-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    .featured-badge {
+      position: absolute;
+      top: 24px; left: 24px;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 6px 14px;
+    }
+
+    .featured-copy {
+      padding: 56px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--charcoal);
+    }
+
+    .featured-copy .eyebrow { color: var(--gold); }
+
+    .featured-copy h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 3.5vw, 52px);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--warm-white);
+      margin-bottom: 8px;
+    }
+
+    .featured-location {
+      font-size: 13px; font-weight: 300;
+      color: rgba(253,251,247,0.45);
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+    }
+
+    .featured-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .spec-item {}
+    .spec-label {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(253,251,247,0.3);
+      margin-bottom: 4px;
+    }
+    .spec-value {
+      font-size: 14px; font-weight: 300;
+      color: rgba(253,251,247,0.75);
+    }
+
+    .featured-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-gold {
+      display: inline-block;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--charcoal); background: var(--gold);
+      padding: 14px 28px; text-decoration: none;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-gold:hover { background: var(--gold-light); }
+
+    .btn-outline-white {
+      display: inline-block;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(253,251,247,0.6);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 13px 28px; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-outline-white:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+    /* ─── CURRENT COMMUNITIES GRID ─── */
+    .communities-section { background: var(--warm-white); padding-top: 64px; }
+
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .community-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .community-img {
+      aspect-ratio: 3/2;
+      background: linear-gradient(160deg, #e4dbd0, #c0b5a4);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 13px;
+      color: rgba(139,130,120,0.45);
+      overflow: hidden;
+      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .community-card:hover .community-img { transform: scale(1.04); }
+
+    .community-copy {
+      padding: 24px 24px 28px;
+      background: var(--warm-white);
+      border: 1px solid var(--light-border);
+      border-top: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .community-type {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+
+    .community-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 300;
+      color: var(--charcoal); line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .community-location {
+      font-size: 12px; font-weight: 300;
+      color: var(--stone); margin-bottom: 16px;
+    }
+
+    .community-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--light-border);
+    }
+
+    .community-badge {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 10px;
+    }
+    .badge-selling { background: var(--gold); color: var(--charcoal); }
+    .badge-soon    { background: var(--charcoal); color: var(--warm-white); }
+    .badge-fast    { background: #7a4a2a; color: #fff; }
+
+    .community-link {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--charcoal); text-decoration: none;
+      border-bottom: 1px solid var(--charcoal);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .community-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ─── COMING SOON ─── */
+    .coming-soon-section { background: var(--cream); }
+
+    .coming-soon-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .coming-card {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 0;
+      border: 1px solid var(--light-border);
+      overflow: hidden;
+      background: var(--warm-white);
+      transition: border-color 0.2s;
+    }
+    .coming-card:hover { border-color: var(--gold); }
+
+    .coming-img {
+      background: linear-gradient(160deg, #d8d0c4, #bfb5a8);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 12px;
+      color: rgba(139,130,120,0.4);
+      min-height: 160px;
+    }
+
+    .coming-copy { padding: 24px; }
+
+    .coming-tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--charcoal);
+      background: var(--cream);
+      padding: 4px 10px;
+      margin-bottom: 12px;
+    }
+
+    .coming-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400;
+      color: var(--charcoal); margin-bottom: 4px; line-height: 1.25;
+    }
+
+    .coming-card .location {
+      font-size: 12px; font-weight: 300;
+      color: var(--stone); margin-bottom: 12px;
+    }
+
+    .coming-card .type {
+      font-size: 12px; font-weight: 300;
+      color: var(--stone);
+    }
+
+    .register-btn {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 1px;
+    }
+
+    /* ─── ALTERNATING FEATURE SECTIONS (from Figma "Shop" layout) ─── */
+    .feature-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: center;
+    }
+    .feature-split.reverse { direction: rtl; }
+    .feature-split.reverse > * { direction: ltr; }
+
+    .feature-img {
+      aspect-ratio: 4/3;
+      background: linear-gradient(160deg, #e4dbd0, #c0b5a4);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 14px;
+      color: rgba(139,130,120,0.45);
+      overflow: hidden;
+    }
+
+    .feature-copy-block {
+      padding: 72px 64px;
+    }
+
+    .feature-copy-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 300;
+      line-height: 1.2; color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+    .feature-copy-block h3 em { font-style: italic; color: var(--stone); }
+
+    .feature-copy-block p {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.8; color: var(--stone);
+      margin-bottom: 32px;
+    }
+
+    /* ─── WHY ZENTERRA ─── */
+    .why-section { background: var(--charcoal); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      margin-top: 56px;
+    }
+
+    .why-card {
+      background: rgba(255,255,255,0.02);
+      padding: 40px 32px;
+      transition: background 0.2s;
+    }
+    .why-card:hover { background: rgba(184,149,90,0.07); }
+
+    .why-icon {
+      font-size: 24px;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .why-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: 12px;
+    }
+
+    .why-card p {
+      font-size: 13px; font-weight: 300;
+      line-height: 1.75;
+      color: rgba(253,251,247,0.45);
+    }
+
+    /* ─── PAST COMMUNITIES ─── */
+    .past-section { background: var(--cream); }
+
+    .past-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .past-card {
+      background: var(--warm-white);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .past-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    .past-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background-size: cover;
+      background-position: center;
+      background-color: #d4cdc4;
+      position: relative;
+      overflow: hidden;
+    }
+    .past-card-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(28,28,26,0.3) 0%, transparent 60%);
+    }
+    .past-card:hover .past-card-img {
+      background-size: 108%;
+    }
+
+    .past-card-body {
+      padding: 20px 22px 22px;
+    }
+
+    .past-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400;
+      color: var(--charcoal); margin-bottom: 4px;
+      line-height: 1.2;
+    }
+
+    .past-card-location {
+      font-size: 12px; font-weight: 300;
+      color: var(--stone); margin-bottom: 10px;
+      letter-spacing: 0.03em;
+    }
+
+    .past-card-meta {
+      display: flex; align-items: center; gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .past-card-type {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    .sold-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--warm-white);
+      background: var(--charcoal);
+      padding: 3px 8px;
+    }
+
+    .award-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--charcoal);
+      background: var(--gold);
+      padding: 3px 8px;
+    }
+
+    /* Past communities portfolio CTA card */
+    .past-card-cta {
+      background: var(--charcoal);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 28px; text-align: center;
+      min-height: 220px;
+      transition: background 0.2s;
+    }
+    .past-card-cta:hover { background: var(--gold); }
+    .past-card-cta p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 300;
+      color: var(--warm-white); margin-bottom: 20px;
+      line-height: 1.3;
+    }
+    .past-card-cta a {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--warm-white); text-decoration: none;
+      border: 1px solid rgba(253,251,247,0.3);
+      padding: 10px 22px;
+      transition: border-color 0.2s;
+    }
+    .past-card-cta a:hover { border-color: var(--warm-white); }
+
+    /* ─── SALES CENTRES ─── */
+    .centres-section { background: var(--warm-white); }
+
+    .centres-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--light-border);
+      margin-top: 48px;
+    }
+
+    .centre-card {
+      background: var(--warm-white);
+      padding: 36px 32px;
+      transition: background 0.2s;
+    }
+    .centre-card:hover { background: var(--cream); }
+
+    .centre-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .status-open .status-dot  { background: #5a9a6a; }
+    .status-open  { color: #5a9a6a; }
+    .status-appt .status-dot { background: var(--gold); }
+    .status-appt { color: var(--gold); }
+
+    .centre-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400;
+      color: var(--charcoal); margin-bottom: 4px;
+    }
+
+    .centre-location {
+      font-size: 13px; font-weight: 300;
+      color: var(--stone); margin-bottom: 16px;
+    }
+
+    .centre-projects {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
+    }
+
+    .centre-contact {
+      font-size: 13px; font-weight: 400;
+      color: var(--charcoal); text-decoration: none;
+      display: block; margin-bottom: 3px;
+      transition: color 0.2s;
+    }
+    .centre-contact:hover { color: var(--gold); }
+
+    .centre-map {
+      display: inline-flex;
+      align-items: center; gap: 6px;
+      margin-top: 16px;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .centre-map:hover { border-bottom-color: var(--gold); }
+
+    /* ─── REGISTER CTA ─── */
+    .register-cta {
+      background: var(--charcoal);
+      padding: 96px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+
+    .register-cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 3.5vw, 52px);
+      font-weight: 300;
+      color: var(--warm-white);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .register-cta h2 em { font-style: italic; color: var(--gold); }
+
+    .register-cta p {
+      font-size: 15px; font-weight: 300;
+      color: rgba(253,251,247,0.45);
+      line-height: 1.7; max-width: 460px;
+    }
+
+    .cta-actions { display: flex; gap: 14px; flex-shrink: 0; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--charcoal);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 64px 56px 0;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
+      gap: 40px; padding-bottom: 52px;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 300;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--warm-white); text-decoration: none;
+      display: block; margin-bottom: 16px;
+    }
+    .footer-brand p {
+      font-size: 13px; font-weight: 300;
+      color: rgba(253,251,247,0.35); line-height: 1.7; max-width: 220px;
+    }
+    .footer-social { display: flex; gap: 8px; margin-top: 20px; }
+    .social-btn {
+      width: 34px; height: 34px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(253,251,247,0.35);
+      text-decoration: none; font-size: 11px; font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-col h5 {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--warm-white); margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li + li { margin-top: 10px; }
+    .footer-col a {
+      font-size: 13px; font-weight: 300;
+      color: rgba(253,251,247,0.38); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 22px 0;
+      display: flex; justify-content: space-between;
+    }
+    .footer-bottom p {
+      font-size: 12px; font-weight: 300;
+      color: rgba(253,251,247,0.22);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * {
+      opacity: 0;
+      animation: fadeUp 0.75s ease forwards;
+    }
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.32s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.46s; }
+
+    /* hidden by filter */
+    .community-card[data-hidden="true"] { display: none; }
+  </style>
+
+<style id="zenterra-real-images">
+/* ── Real Zenterra renderings injected from zenterra.ca ── */
+
+/* Homepage hero */
+.hero-img-block,
+.page-hero-image-inner,
+.philosophy-image,
+.hero-bg { position: relative; }
+
+/* Community card backgrounds */
+[data-img="kc"]       { background-image: url('https://zenterra.ca/wp-content/uploads/2026/02/KC_Website-Images.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="commons"]  { background-image: url('https://zenterra.ca/wp-content/uploads/2026/02/CM_Website-Images.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="latimer"]  { background-image: url('https://zenterra.ca/wp-content/uploads/2026/02/LW_Website-Images.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="eden"]     { background-image: url('https://zenterra.ca/wp-content/uploads/2026/03/Eden_Website_Home.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="solana"]   { background-image: url('https://zenterra.ca/wp-content/uploads/2024/05/solana_875x825.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="atlin"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2025/05/Atlin_HomePage_1.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="cc"]       { background-image: url('https://zenterra.ca/wp-content/uploads/2023/08/CC_Home_Page-scaled.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="cc2"]      { background-image: url('https://zenterra.ca/wp-content/uploads/2025/01/CC2_875x825.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s1"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-13.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s2"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-9.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s3"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-2.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s4"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-15.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s5"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-5.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s6"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-11.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s7"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-7.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s8"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-3.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="zenterra-homepage-v2.html" class="nav-logo">Zenterra</a>
+  <ul class="nav-center">
+    <li><a href="zenterra-communities.html" class="active">Communities</a></li><li><a href="zenterra-about.html">About</a></li><li><a href="zenterra-homeowner-care.html">Homeowner Care</a></li><li><a href="zenterra-news.html">News &amp; Reviews</a></li><li><a href="zenterra-about.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right"><a href="zenterra-register.html" class="nav-register">Register</a></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('https://zenterra.ca/wp-content/uploads/2026/02/KC_Website-Images.png');background-size:cover;background-position:center;">
+    <span class="hero-bg-text">Zenterra aerial community photography</span>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Surrey &amp; Langley, BC &nbsp;·&nbsp; 7 Active Communities</p>
+    <h1>Find Your <em>Perfect</em><br>Community</h1>
+    <p class="hero-sub">From Surrey City Centre to Willoughby, Zenterra builds thoughtfully designed homes across Metro Vancouver's most desirable neighbourhoods.</p>
+
+    <div class="hero-filter-strip">
+      <span class="filter-label">Location</span>
+      <button class="filter-chip active" data-loc="all">All</button>
+      <button class="filter-chip" data-loc="surrey">Surrey</button>
+      <button class="filter-chip" data-loc="south-surrey">South Surrey</button>
+      <button class="filter-chip" data-loc="langley">Langley</button>
+      <div class="filter-divider"></div>
+      <span class="filter-label">Type</span>
+      <button class="filter-chip active" data-type="all">All</button>
+      <button class="filter-chip" data-type="condos">Condos</button>
+      <button class="filter-chip" data-type="townhomes">Townhomes</button>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- STICKY FILTER BAR -->
+<div class="sticky-filters" id="sticky-filters">
+  <span class="filter-label" style="color:var(--stone);">Location</span>
+  <button class="sticky-filter-chip active" data-loc="all">All</button>
+  <button class="sticky-filter-chip" data-loc="surrey">Surrey</button>
+  <button class="sticky-filter-chip" data-loc="south-surrey">South Surrey</button>
+  <button class="sticky-filter-chip" data-loc="langley">Langley</button>
+  <div class="sticky-divider"></div>
+  <span class="filter-label" style="color:var(--stone);">Type</span>
+  <button class="sticky-filter-chip active" data-type="all">All</button>
+  <button class="sticky-filter-chip" data-type="condos">Condos</button>
+  <button class="sticky-filter-chip" data-type="townhomes">Townhomes</button>
+  <span class="result-count" id="result-count">Showing 6 communities</span>
+</div>
+
+<!-- FEATURED COMMUNITY -->
+<section class="section featured-section" id="communities">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">Featured Community</p>
+      <h2 class="section-title">Now Selling</h2>
+    </div>
+  </div>
+
+  <div class="featured-card">
+    <div class="featured-image" style="background-image:url('https://zenterra.ca/wp-content/uploads/2026/02/KC_Website-Images.png');background-size:cover;background-position:center;">
+      King + Crescent — South Surrey rendering
+      <span class="featured-badge badge-selling">Now Selling</span>
+    </div>
+    <div class="featured-copy">
+      <p class="eyebrow">South Surrey, BC</p>
+      <h3>King + Crescent</h3>
+      <p class="featured-location">3438 146A Street, South Surrey</p>
+      <div class="featured-specs">
+        <div class="spec-item">
+          <div class="spec-label">Home Type</div>
+          <div class="spec-value">Condos</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Bedrooms</div>
+          <div class="spec-value">1, 2 &amp; 3 Bed</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Status</div>
+          <div class="spec-value">Selling Now</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Sales Centre</div>
+          <div class="spec-value">Open Daily</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Contact</div>
+          <div class="spec-value">604-779-2456</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Amenities</div>
+          <div class="spec-value">9,700+ sq ft</div>
+        </div>
+      </div>
+      <div class="featured-actions">
+        <a href="#" class="btn-gold">View Community</a>
+        <a href="#" class="btn-outline-white">Register</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT COMMUNITIES GRID -->
+<section class="communities-section" id="current">
+  <div style="padding: 0 56px 40px;">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Current Communities</p>
+        <h2 class="section-title">Active Developments</h2>
+      </div>
+      <a href="#past" class="btn-ghost">View past communities</a>
+    </div>
+  </div>
+
+  <div class="community-grid" id="community-grid">
+
+    <div class="community-card" data-loc="south-surrey" data-type="condos">
+      <div class="community-img" data-img="kc">/div>
+      <div class="community-copy">
+        <div class="community-type">Condos · South Surrey</div>
+        <div class="community-name">King + Crescent</div>
+        <div class="community-location">3438 146A St, South Surrey, BC</div>
+        <p style="font-size:13px;font-weight:300;color:var(--stone);line-height:1.6;">Inspired by nature and designed with elegance. 1, 2 &amp; 3 bedroom condos with over 9,700 sq ft of amenities.</p>
+        <div class="community-meta">
+          <span class="community-badge badge-selling">Now Selling</span>
+          <a href="zenterra-community-detail.html" class="community-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="community-card" data-loc="surrey" data-type="condos">
+      <div class="community-img" data-img="cc">/div>
+      <div class="community-copy">
+        <div class="community-type">Condos · Surrey City Centre</div>
+        <div class="community-name">City Corners</div>
+        <div class="community-location">Surrey City Centre, BC</div>
+        <p style="font-size:13px;font-weight:300;color:var(--stone);line-height:1.6;">Urban living at its finest in the heart of Surrey City Centre. Studios, 1 &amp; 2 bedroom homes with contemporary design.</p>
+        <div class="community-meta">
+          <span class="community-badge badge-selling">Now Selling</span>
+          <a href="zenterra-city-corners.html" class="community-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="community-card" data-loc="langley" data-type="condos">
+      <div class="community-img" data-img="commons">/div>
+      <div class="community-copy">
+        <div class="community-type">Condos · Willoughby, Langley</div>
+        <div class="community-name">The Commons</div>
+        <div class="community-location">Willoughby Town Centre Dr, Langley</div>
+        <p style="font-size:13px;font-weight:300;color:var(--stone);line-height:1.6;">199 exquisitely designed condominiums in the heart of Langley Township's Willoughby neighbourhood. From $20,500 down.</p>
+        <div class="community-meta">
+          <span class="community-badge badge-fast">Selling Fast</span>
+          <a href="zenterra-the-commons.html" class="community-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="community-card" data-loc="surrey" data-type="condos">
+      <div class="community-img" data-img="atlin">/div>
+      <div class="community-copy">
+        <div class="community-type">Condos · West Clayton, Surrey</div>
+        <div class="community-name">Clayton Crest</div>
+        <div class="community-location">West Clayton, Surrey, BC</div>
+        <p style="font-size:13px;font-weight:300;color:var(--stone);line-height:1.6;">The newest Zenterra community in Surrey. Studio, 1, 2 &amp; 3 bedroom condos — now breaking ground.</p>
+        <div class="community-meta">
+          <span class="community-badge badge-soon">Coming Soon</span>
+          <a href="zenterra-atlin.html" class="community-link">Register →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="community-card" data-loc="langley" data-type="condos">
+      <div class="community-img" data-img="eden">/div>
+      <div class="community-copy">
+        <div class="community-type">Condos · Langley</div>
+        <div class="community-name">Eden</div>
+        <div class="community-location">Langley, BC</div>
+        <p style="font-size:13px;font-weight:300;color:var(--stone);line-height:1.6;">Contemporary 1, 2 &amp; 3 bedroom condos in Langley, designed for those who want modern comfort in a growing community.</p>
+        <div class="community-meta">
+          <span class="community-badge badge-selling">Now Selling</span>
+          <a href="zenterra-eden.html" class="community-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="community-card" data-loc="langley" data-type="townhomes">
+      <div class="community-img" data-img="solana">/div>
+      <div class="community-copy">
+        <div class="community-type">Townhomes · Langley</div>
+        <div class="community-name">Solana</div>
+        <div class="community-location">Langley, BC</div>
+        <p style="font-size:13px;font-weight:300;color:var(--stone);line-height:1.6;">Spacious 3 &amp; 4 bedroom townhomes for growing families. Thoughtfully designed with the Zenterra standard of quality.</p>
+        <div class="community-meta">
+          <span class="community-badge badge-selling">Now Selling</span>
+          <a href="zenterra-solana.html" class="community-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div id="no-results" style="display:none;padding:80px 56px;text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--stone);">No communities match your filters.</p>
+    <p style="font-size:14px;font-weight:300;color:var(--stone);margin-top:8px;">Try adjusting your location or type selection.</p>
+  </div>
+</section>
+
+<!-- ALTERNATING FEATURE: Quality -->
+<div style="background:var(--cream);">
+  <div class="feature-split">
+    <div class="feature-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-2.jpg');background-size:cover;background-position:center;">/div>
+    <div class="feature-copy-block">
+      <p class="eyebrow">The Zenterra Standard</p>
+      <h3>Quality You Can<br><em>Feel</em> Every Day</h3>
+      <p>Every Zenterra home is built to the same exacting standard — 9-foot ceilings, luxury vinyl plank flooring, quartz countertops, and thoughtfully curated designer colour schemes. It's the details that make the difference.</p>
+      <a href="zenterra-about.html" class="btn-primary">About Zenterra</a>
+    </div>
+  </div>
+  <div class="feature-split reverse">
+    <div class="feature-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-9.jpg');background-size:cover;background-position:center;">/div>
+    <div class="feature-copy-block">
+      <p class="eyebrow">Location &amp; Lifestyle</p>
+      <h3>In the <em>Heart</em> of<br>Where You Want to Be</h3>
+      <p>From Surrey City Centre's urban energy to Langley's family-friendly pace, every Zenterra community is chosen for its connectivity, amenities, and long-term value in Metro Vancouver's fastest-growing areas.</p>
+      <a href="#sales-centres" class="btn-primary">Find a Sales Centre</a>
+    </div>
+  </div>
+</div>
+
+<!-- WHY ZENTERRA -->
+<section class="section why-section">
+  <p class="eyebrow" style="color:var(--gold);">Why Buy With Zenterra</p>
+  <h2 class="section-title" style="color:var(--warm-white);">Built Different.<br><em>On Purpose.</em></h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">◈</div>
+      <h4>In-House Expertise</h4>
+      <p>One team from land acquisition to possession day. Complete accountability, no finger-pointing between contractors.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">◇</div>
+      <h4>Award-Winning Design</h4>
+      <p>9× Georgie Award nominated for Multi-Family Builder of the Year. National Award winners for housing excellence.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">○</div>
+      <h4>Homeowner Care</h4>
+      <p>Orientation walkthroughs, 2-5-10 warranty coverage, and an ongoing care program — we're here long after possession.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">⬡</div>
+      <h4>Community Investment</h4>
+      <p>We build more than homes — we invest in the schools, sports teams, and causes of every neighbourhood we build in.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMING SOON -->
+<section class="section coming-soon-section" id="coming-soon">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">Coming Soon</p>
+      <h2 class="section-title">Register for <em>Early Access</em></h2>
+    </div>
+  </div>
+  <div class="coming-soon-grid">
+    <div class="coming-card">
+      <div class="coming-img" data-img="atlin">/div>
+      <div class="coming-copy">
+        <span class="coming-tag">West Clayton, Surrey</span>
+        <h3>Clayton Crest</h3>
+        <p class="location">West Clayton, Surrey, BC</p>
+        <p class="type">Studio, 1, 2 &amp; 3 Bedroom Condos</p>
+        <p style="font-size:13px;font-weight:300;color:var(--stone);margin-top:8px;line-height:1.6;">Now breaking ground. Register for priority access to floor plans, pricing, and exclusive pre-sale opportunities.</p>
+        <a href="#" class="register-btn">Register for Priority Access →</a>
+      </div>
+    </div>
+    <div class="coming-card">
+      <div class="coming-img" data-img="eden">/div>
+      <div class="coming-copy">
+        <span class="coming-tag">Langley</span>
+        <h3>New Langley Community</h3>
+        <p class="location">Langley, BC</p>
+        <p class="type">Details Coming Soon</p>
+        <p style="font-size:13px;font-weight:300;color:var(--stone);margin-top:8px;line-height:1.6;">Our next Langley community is in development. Register your interest to be first to know when details are released.</p>
+        <a href="#" class="register-btn">Register Your Interest →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAST COMMUNITIES -->
+<section class="section past-section" id="past">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">Our Track Record</p>
+      <h2 class="section-title">Past Communities</h2>
+    </div>
+    <a href="https://zenterra.ca/past-projects/" target="_blank" class="btn-ghost">View full portfolio</a>
+  </div>
+  <div class="past-grid">
+
+    <div class="past-card">
+      <div class="past-card-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2026/02/LW_Website-Images.png');"></div>
+      <div class="past-card-body">
+        <div class="past-card-name">Latimer Walk</div>
+        <div class="past-card-location">Langley, BC</div>
+        <div class="past-card-meta">
+          <span class="past-card-type">Townhomes</span>
+          <span class="sold-badge">Sold Out</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="past-card">
+      <div class="past-card-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-13.jpg');"></div>
+      <div class="past-card-body">
+        <div class="past-card-name">SOHO</div>
+        <div class="past-card-location">Surrey, BC</div>
+        <div class="past-card-meta">
+          <span class="past-card-type">Condos</span>
+          <span class="award-badge">Award Winner</span>
+          <span class="sold-badge">Sold Out</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="past-card">
+      <div class="past-card-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-5.jpg');"></div>
+      <div class="past-card-body">
+        <div class="past-card-name">Windsor</div>
+        <div class="past-card-location">Langley, BC</div>
+        <div class="past-card-meta">
+          <span class="past-card-type">Condos</span>
+          <span class="sold-badge">Sold Out</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="past-card">
+      <div class="past-card-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-11.jpg');"></div>
+      <div class="past-card-body">
+        <div class="past-card-name">Camden</div>
+        <div class="past-card-location">Langley, BC</div>
+        <div class="past-card-meta">
+          <span class="past-card-type">Condos</span>
+          <span class="sold-badge">Sold Out</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="past-card">
+      <div class="past-card-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-7.jpg');"></div>
+      <div class="past-card-body">
+        <div class="past-card-name">Newbury</div>
+        <div class="past-card-location">Langley, BC</div>
+        <div class="past-card-meta">
+          <span class="past-card-type">Townhomes</span>
+          <span class="sold-badge">Sold Out</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="past-card">
+      <div class="past-card-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-3.jpg');"></div>
+      <div class="past-card-body">
+        <div class="past-card-name">Central</div>
+        <div class="past-card-location">Langley, BC</div>
+        <div class="past-card-meta">
+          <span class="past-card-type">Condos &amp; Townhomes</span>
+          <span class="sold-badge">Sold Out</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="past-card">
+      <div class="past-card-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-15.jpg');"></div>
+      <div class="past-card-body">
+        <div class="past-card-name">SOHO 2</div>
+        <div class="past-card-location">Surrey, BC</div>
+        <div class="past-card-meta">
+          <span class="past-card-type">Condos</span>
+          <span class="award-badge">Award Finalist</span>
+          <span class="sold-badge">Sold Out</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="past-card-cta">
+      <p>30 years of homes built to a higher standard.</p>
+      <a href="https://zenterra.ca/past-projects/" target="_blank">View Full Portfolio →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SALES CENTRES -->
+<section class="section centres-section" id="sales-centres">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">Visit Us In Person</p>
+      <h2 class="section-title">Sales Centre <em>Directory</em></h2>
+    </div>
+  </div>
+  <div class="centres-grid">
+
+    <div class="centre-card">
+      <div class="centre-status status-open">
+        <span class="status-dot"></span> Open Today
+      </div>
+      <h3>South Surrey Sales Centre</h3>
+      <p class="centre-location">3438 146A Street, South Surrey, BC</p>
+      <div class="centre-projects">King + Crescent &amp; City Corners</div>
+      <a href="tel:6047792456" class="centre-contact">604-779-2456 (King + Crescent)</a>
+      <a href="tel:6043376563" class="centre-contact">604-337-6563 (City Corners)</a>
+      <a href="#" class="centre-map">→ Get Directions</a>
+    </div>
+
+    <div class="centre-card">
+      <div class="centre-status status-open">
+        <span class="status-dot"></span> Open Today
+      </div>
+      <h3>Willoughby Sales Centre</h3>
+      <p class="centre-location">190 Willoughby Town Centre Dr, Langley</p>
+      <div class="centre-projects">Eden &amp; Solana</div>
+      <a href="tel:7787621902" class="centre-contact">778-762-1902 (Eden)</a>
+      <a href="tel:6042435439" class="centre-contact">604-243-5439 (Solana)</a>
+      <a href="#" class="centre-map">→ Get Directions</a>
+    </div>
+
+    <div class="centre-card">
+      <div class="centre-status status-appt">
+        <span class="status-dot"></span> By Appointment
+      </div>
+      <h3>The Commons Sales Centre</h3>
+      <p class="centre-location">Willoughby, Langley Township, BC</p>
+      <div class="centre-projects">The Commons</div>
+      <a href="tel:6043775544" class="centre-contact">604-377-5544</a>
+      <a href="#" class="centre-map">→ Get Directions</a>
+    </div>
+
+  </div>
+  <p style="margin-top:24px;font-size:13px;font-weight:300;color:var(--stone);padding:0 2px;">
+    Head Office: 216-2630 Croydon Drive, Surrey BC &nbsp;·&nbsp; <a href="tel:7789452050" style="color:var(--gold);text-decoration:none;">778-945-2050</a>
+  </p>
+</section>
+
+<!-- REGISTER CTA -->
+<section class="register-cta" id="register">
+  <div>
+    <h2>Ready to Find Your<br><em>New Home?</em></h2>
+    <p>Register for a Zenterra community to receive exclusive early access, floor plan previews, and priority pricing — before the public launch.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="#" class="btn-gold">Register Now</a>
+    <a href="#" class="btn-outline-white">Contact Us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="zenterra-homepage-v2.html" class="footer-logo">Zenterra</a>
+      <p>Building quality homes with purpose and integrity across Surrey and Langley, BC since 2000.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/ZenterraDevelopments" class="social-btn" target="_blank">f</a>
+        <a href="https://www.instagram.com/zenterra/" class="social-btn" target="_blank">ig</a>
+        <a href="https://www.linkedin.com/company/zenterra-developments-ltd" class="social-btn" target="_blank">in</a>
+        <a href="https://www.youtube.com/@ZenterraDevelopments" class="social-btn" target="_blank">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Communities</h5>
+      <ul>
+        <li><a href="zenterra-community-detail.html">King + Crescent</a></li>
+        <li><a href="zenterra-city-corners.html">City Corners</a></li>
+        <li><a href="zenterra-the-commons.html">The Commons</a></li>
+        <li><a href="zenterra-atlin.html">Atlin at Clayton Crest</a></li>
+        <li><a href="zenterra-bute.html">Bute at Clayton Crest</a></li>
+        <li><a href="zenterra-eden.html">Eden</a></li>
+        <li><a href="zenterra-solana.html">Solana</a></li>
+        <li><a href="zenterra-latimer-walk.html">Latimer Walk</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <ul>
+        <li><a href="zenterra-about.html#story">Our Story</a></li>
+        <li><a href="zenterra-about.html#values">Our Values</a></li>
+        <li><a href="zenterra-about.html#awards">Awards</a></li>
+        <li><a href="zenterra-about.html#community">Community Involvement</a></li>
+        <li><a href="zenterra-about.html">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Homeowner Care</h5>
+      <ul>
+        <li><a href="zenterra-homeowner-care.html#orientation">Orientation</a></li>
+        <li><a href="zenterra-homeowner-care.html#warranty">2-5-10 Warranty</a></li>
+        <li><a href="zenterra-homeowner-care.html#maintenance">Maintenance Tips</a></li>
+        <li><a href="zenterra-homeowner-care.html#portal">Homeowner Portal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="zenterra-about.html#contact">Contact Us</a></li>
+        <li><a href="zenterra-communities.html#sales-centres">Sales Centres</a></li>
+        <li><a href="zenterra-register.html">Register</a></li>
+        <li><a href="zenterra-news.html">News &amp; Reviews</a></li>
+        <li><a href="mailto:info@zenterra.ca">info@zenterra.ca</a></li>
+        <li><a href="tel:7789452050">778-945-2050</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Zenterra Developments Ltd. All rights reserved. &nbsp;·&nbsp; 216-2630 Croydon Drive, Surrey BC V3Z 6T3</p>
+    <p>Privacy Policy &nbsp;·&nbsp; Terms of Use</p>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── Transparent → solid nav on scroll
+  const nav = document.querySelector('nav');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        nav.style.background = 'rgba(253,251,247,0.98)';
+        nav.style.boxShadow = '0 1px 20px rgba(0,0,0,0.08)';
+      } else {
+        nav.style.background = 'rgba(253,251,247,0.97)';
+        nav.style.boxShadow = 'none';
+      }
+    });
+  }
+
+  // ── Filter logic (hero + sticky bar stay in sync)
+  let activeLoc  = 'all';
+  let activeType = 'all';
+
+  function applyFilters() {
+    const cards = document.querySelectorAll('#community-grid .community-card');
+    let visible = 0;
+
+    cards.forEach(card => {
+      const locMatch  = activeLoc  === 'all' || card.dataset.loc  === activeLoc;
+      const typeMatch = activeType === 'all' || card.dataset.type === activeType;
+      const show = locMatch && typeMatch;
+      card.dataset.hidden = show ? 'false' : 'true';
+      if (show) visible++;
+    });
+
+    const count = document.getElementById('result-count');
+    count.textContent = `Showing ${visible} communit${visible === 1 ? 'y' : 'ies'}`;
+
+    document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+    document.getElementById('community-grid').style.display = visible === 0 ? 'none' : 'grid';
+  }
+
+  function syncChips(clickedChip, group) {
+    // update only button chips (not cards) in both filter bars
+    document.querySelectorAll(`button[data-${group}]`).forEach(chip => {
+      chip.classList.remove('active');
+    });
+    document.querySelectorAll(`button[data-${group}="${clickedChip.dataset[group]}"]`).forEach(chip => {
+      chip.classList.add('active');
+    });
+  }
+
+  document.querySelectorAll('button[data-loc]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeLoc = chip.dataset.loc;
+      syncChips(chip, 'loc');
+      applyFilters();
+    });
+  });
+
+  document.querySelectorAll('button[data-type]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeType = chip.dataset.type;
+      syncChips(chip, 'type');
+      applyFilters();
+    });
+  });
+
+  // ── Sticky filter bar show/hide on scroll
+  const stickyBar = document.getElementById('sticky-filters');
+  const heroSection = document.querySelector('.hero');
+  if (stickyBar && heroSection) {
+    window.addEventListener('scroll', () => {
+      const heroBottom = heroSection.getBoundingClientRect().bottom;
+      stickyBar.style.opacity = heroBottom < 0 ? '1' : '0';
+      stickyBar.style.pointerEvents = heroBottom < 0 ? 'auto' : 'none';
+    });
+  }
+
+  // ── Make entire community card clickable
+  const cardLinks = {
+    'King + Crescent':        'zenterra-community-detail.html',
+    'City Corners':           'zenterra-city-corners.html',
+    'The Commons':            'zenterra-the-commons.html',
+    'Clayton Crest':          'zenterra-atlin.html',
+    'Atlin at Clayton Crest': 'zenterra-atlin.html',
+    'Bute at Clayton Crest':  'zenterra-bute.html',
+    'Eden':                   'zenterra-eden.html',
+    'Solana':                 'zenterra-solana.html',
+    'Latimer Walk':           'zenterra-latimer-walk.html',
+  };
+  document.querySelectorAll('.community-card').forEach(card => {
+    const nameEl = card.querySelector('.community-name, h3, h2');
+    if (!nameEl) return;
+    const name = nameEl.textContent.trim();
+    if (cardLinks[name]) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', e => {
+        if (!e.target.closest('a')) window.location.href = cardLinks[name];
+      });
+    }
+  });
+
+  // ── Initial filter run
+  applyFilters();
+
+</script>
+</body>
+</html>

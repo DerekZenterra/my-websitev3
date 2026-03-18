@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — Zenterra Developments</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:        #F5F0E8;
+      --charcoal:     #1C1C1A;
+      --stone:        #8B8278;
+      --warm-white:   #FDFBF7;
+      --gold:         #B8955A;
+      --gold-light:   #D4B07A;
+      --light-border: #E2DAD0;
+      --nav-h:        84px;
+      --field-border: #D8D2CA;
+      --field-focus:  #B8955A;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─────────────────────── NAV ─────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 0 56px;
+      z-index: 200;
+      background: rgba(253,251,247,0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--light-border);
+      box-sizing: border-box;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif !important;
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--charcoal) !important;
+      text-decoration: none !important;
+      flex-shrink: 0;
+    }
+
+    .nav-center {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 36px;
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .nav-center > li {
+      position: relative;
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .nav-center > li > a {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      color: var(--charcoal) !important;
+      text-decoration: none !important;
+      opacity: 0.65;
+      transition: opacity 0.2s;
+      display: flex !important;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 0;
+    }
+    .nav-center > li > a:hover { opacity: 1; }
+    .nav-center > li > a.active { opacity: 1; color: var(--gold) !important; }
+
+    /* Dropdown */
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 16px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      background: var(--warm-white);
+      border: 1px solid var(--light-border);
+      min-width: 200px;
+      padding: 8px 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+      z-index: 300;
+    }
+    .nav-center > li:hover .dropdown {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown a {
+      display: block !important;
+      padding: 10px 20px !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 400 !important;
+      color: var(--charcoal) !important;
+      text-decoration: none !important;
+      opacity: 0.7;
+      transition: opacity 0.15s, padding-left 0.15s;
+    }
+    .dropdown a:hover { opacity: 1; padding-left: 26px !important; background: var(--cream); }
+    .dropdown-divider { height: 1px; background: var(--light-border); margin: 6px 0; }
+
+    .nav-right {
+      display: flex !important;
+      align-items: center !important;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .nav-register {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      color: var(--warm-white) !important;
+      background: var(--charcoal) !important;
+      padding: 11px 26px !important;
+      text-decoration: none !important;
+      transition: background 0.2s;
+      display: inline-block !important;
+    }
+    .nav-register:hover { background: var(--gold) !important; }
+
+    /* Nav close button (register page) */
+    .nav-close {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--stone) !important;
+      text-decoration: none !important;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .nav-close:hover { color: var(--charcoal) !important; }
+    .nav-close-x {
+      width: 28px; height: 28px;
+      border: 1px solid var(--light-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+
+    /* ─── PAGE LAYOUT ─── */
+    .page-wrapper {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ─── LEFT PANEL — branding ─── */
+    .left-panel {
+      background: var(--charcoal);
+      padding-top: var(--nav-h);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .left-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #2a2720 0%, #1a1816 100%);
+    }
+
+    .left-content {
+      position: relative; z-index: 2;
+      padding: 64px 56px 48px;
+      flex: 1; display: flex;
+      flex-direction: column; justify-content: center;
+    }
+
+    .left-eyebrow {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 24px;
+    }
+
+    .left-panel h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 4vw, 58px); font-weight: 300;
+      line-height: 1.08; color: var(--warm-white);
+      margin-bottom: 24px;
+    }
+    .left-panel h2 em { font-style: italic; color: rgba(253,251,247,0.4); }
+
+    .left-panel .desc {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.8; color: rgba(253,251,247,0.5);
+      max-width: 380px; margin-bottom: 52px;
+    }
+
+    /* Trust points */
+    .trust-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .trust-item {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+
+    .trust-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border: 1px solid rgba(184,149,90,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 13px; margin-top: 1px;
+    }
+
+    .trust-text h4 {
+      font-size: 13px; font-weight: 500;
+      color: var(--warm-white); margin-bottom: 2px;
+    }
+    .trust-text p {
+      font-size: 12px; font-weight: 300;
+      color: rgba(253,251,247,0.4); line-height: 1.5;
+    }
+
+    /* Stats bar at bottom of left panel */
+    .left-stats {
+      position: relative; z-index: 2;
+      display: flex; gap: 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .left-stat {
+      flex: 1; padding: 20px 24px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      text-align: center;
+    }
+    .left-stat:last-child { border-right: none; }
+
+    .left-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 300;
+      color: var(--gold); line-height: 1;
+    }
+    .left-stat-label {
+      font-size: 10px; font-weight: 400; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(253,251,247,0.3);
+      margin-top: 4px;
+    }
+
+    /* ─── RIGHT PANEL — form ─── */
+    .right-panel {
+      background: var(--warm-white);
+      padding-top: var(--nav-h);
+      overflow-y: auto;
+    }
+
+    .form-container {
+      padding: 64px 64px 80px;
+      max-width: 680px;
+    }
+
+    /* Form header — matches Polygon's "Register / Sign up to receive updates" */
+    .form-header {
+      text-align: center;
+      margin-bottom: 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--light-border);
+    }
+
+    .form-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px; font-weight: 300;
+      color: var(--charcoal); letter-spacing: -0.01em;
+      margin-bottom: 10px; line-height: 1.1;
+    }
+
+    .form-header p {
+      font-size: 14px; font-weight: 300;
+      color: var(--stone); line-height: 1.6;
+    }
+
+    /* ─── FIELD STYLES (Figma form: First name / Last name / Email / Message inputs) ─── */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .field-full { margin-bottom: 16px; }
+
+    .field-group {
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    /* Figma: bg-white border border-[#e0e0e0] px-[16px] py-[12px] rounded-[8px] */
+    .field-input,
+    .field-select {
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--field-border);
+      color: var(--charcoal);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 300;
+      padding: 16px 18px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .field-input:focus,
+    .field-select:focus {
+      border-color: var(--field-focus);
+      box-shadow: 0 0 0 3px rgba(184,149,90,0.1);
+    }
+
+    .field-input::placeholder { color: #b0a89e; }
+
+    .field-select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238B8278' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 44px;
+    }
+    .field-select option { color: var(--charcoal); }
+
+    /* ─── SECTION LABEL ─── */
+    .section-label {
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--charcoal); margin: 32px 0 16px;
+    }
+
+    /* ─── COMMUNITY CHECKBOXES — 3-column grid (matching Polygon) ─── */
+    .community-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px 16px;
+      margin-bottom: 24px;
+    }
+
+    .check-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      cursor: pointer;
+    }
+
+    /* Custom checkbox */
+    .check-item input[type="checkbox"] {
+      -webkit-appearance: none; appearance: none;
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--field-border);
+      background: #fff;
+      cursor: pointer; flex-shrink: 0;
+      margin-top: 2px;
+      transition: border-color 0.15s, background 0.15s;
+      position: relative;
+    }
+
+    .check-item input[type="checkbox"]:checked {
+      background: var(--charcoal);
+      border-color: var(--charcoal);
+    }
+
+    .check-item input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px; top: 1px;
+      width: 6px; height: 10px;
+      border: 1.5px solid #fff;
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .check-item input[type="checkbox"]:hover:not(:checked) {
+      border-color: var(--gold);
+    }
+
+    .check-label {
+      font-size: 13px; font-weight: 300;
+      line-height: 1.45; color: var(--charcoal);
+      user-select: none;
+    }
+
+    .check-label .community-location {
+      display: block;
+      font-size: 11px; font-weight: 300;
+      color: var(--stone); margin-top: 1px;
+    }
+
+    /* Status badge on community */
+    .check-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 1px 6px; margin-left: 6px;
+      vertical-align: middle;
+    }
+    .badge-selling { background: rgba(184,149,90,0.15); color: var(--gold); }
+    .badge-soon    { background: rgba(28,28,26,0.08);    color: var(--stone); }
+
+    /* ─── SINGLE CHECKBOX (Realtor / Consent) ─── */
+    .single-check {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-bottom: 16px; cursor: pointer;
+    }
+
+    .single-check input[type="checkbox"] {
+      -webkit-appearance: none; appearance: none;
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--field-border);
+      background: #fff; cursor: pointer; flex-shrink: 0;
+      margin-top: 2px;
+      transition: border-color 0.15s, background 0.15s;
+      position: relative;
+    }
+    .single-check input[type="checkbox"]:checked {
+      background: var(--charcoal); border-color: var(--charcoal);
+    }
+    .single-check input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute; left: 4px; top: 1px;
+      width: 6px; height: 10px;
+      border: 1.5px solid #fff;
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .single-check-label {
+      font-size: 13px; font-weight: 400;
+      color: var(--charcoal); line-height: 1.5;
+      user-select: none;
+    }
+
+    /* Consent text — smaller, like Polygon */
+    .consent-text {
+      font-size: 11px; font-weight: 300;
+      color: var(--stone); line-height: 1.65;
+    }
+    .consent-text a { color: var(--gold); text-decoration: none; }
+    .consent-text a:hover { text-decoration: underline; }
+
+    /* ─── DIVIDER ─── */
+    .form-divider {
+      border: none; height: 1px;
+      background: var(--light-border);
+      margin: 28px 0;
+    }
+
+    /* ─── reCAPTCHA placeholder ─── */
+    .recaptcha-wrap {
+      display: flex; justify-content: center;
+      margin: 32px 0 28px;
+    }
+
+    .recaptcha-box {
+      width: 300px; height: 74px;
+      border: 1px solid var(--field-border);
+      background: #f9f9f7;
+      display: flex; align-items: center;
+      padding: 0 16px; gap: 14px;
+    }
+
+    .recaptcha-check {
+      width: 26px; height: 26px;
+      border: 2px solid var(--field-border);
+      background: #fff; flex-shrink: 0;
+    }
+
+    .recaptcha-text {
+      flex: 1;
+      font-size: 13px; font-weight: 300; color: var(--stone);
+    }
+
+    .recaptcha-logo {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 3px;
+    }
+
+    .recaptcha-logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #4285f4, #34a853, #fbbc04, #ea4335);
+      border-radius: 50%; opacity: 0.7;
+    }
+
+    .recaptcha-logo-text {
+      font-size: 8px; font-weight: 400; color: #999;
+      text-align: center; letter-spacing: 0.03em;
+    }
+
+    /* ─── SUBMIT BUTTON (Figma: bg-black, full width) ─── */
+    .btn-register {
+      width: 100%; padding: 18px;
+      background: var(--charcoal); border: none;
+      color: var(--warm-white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+      margin-bottom: 16px;
+    }
+    .btn-register:hover { background: var(--gold); }
+
+    .form-footnote {
+      text-align: center;
+      font-size: 11px; font-weight: 300; color: var(--stone);
+      line-height: 1.6;
+    }
+    .form-footnote a { color: var(--gold); text-decoration: none; }
+
+    /* ─── SUCCESS STATE ─── */
+    .success-state {
+      display: none;
+      text-align: center; padding: 80px 40px;
+    }
+
+    .success-icon {
+      width: 64px; height: 64px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: var(--gold);
+      margin: 0 auto 28px;
+    }
+
+    .success-state h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px; font-weight: 300;
+      color: var(--charcoal); margin-bottom: 12px;
+    }
+
+    .success-state p {
+      font-size: 15px; font-weight: 300;
+      color: var(--stone); line-height: 1.7;
+      max-width: 360px; margin: 0 auto 32px;
+    }
+
+    .btn-back {
+      display: inline-block; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--warm-white); background: var(--charcoal);
+      padding: 14px 32px; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-back:hover { background: var(--gold); }
+
+    /* ─── VALIDATION ─── */
+    .field-error {
+      font-size: 11px; font-weight: 400;
+      color: #c0392b; margin-top: 5px; display: none;
+    }
+
+    .field-input.invalid, .field-select.invalid {
+      border-color: #c0392b;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-container {
+      animation: fadeUp 0.6s ease forwards;
+    }
+  </style>
+
+<style id="zenterra-real-images">
+/* ── Real Zenterra renderings injected from zenterra.ca ── */
+
+/* Homepage hero */
+.hero-img-block,
+.page-hero-image-inner,
+.philosophy-image,
+.hero-bg { position: relative; }
+
+/* Community card backgrounds */
+[data-img="kc"]       { background-image: url('https://zenterra.ca/wp-content/uploads/2026/02/KC_Website-Images.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="commons"]  { background-image: url('https://zenterra.ca/wp-content/uploads/2026/02/CM_Website-Images.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="latimer"]  { background-image: url('https://zenterra.ca/wp-content/uploads/2026/02/LW_Website-Images.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="eden"]     { background-image: url('https://zenterra.ca/wp-content/uploads/2026/03/Eden_Website_Home.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="solana"]   { background-image: url('https://zenterra.ca/wp-content/uploads/2024/05/solana_875x825.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="atlin"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2025/05/Atlin_HomePage_1.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="cc"]       { background-image: url('https://zenterra.ca/wp-content/uploads/2023/08/CC_Home_Page-scaled.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="cc2"]      { background-image: url('https://zenterra.ca/wp-content/uploads/2025/01/CC2_875x825.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s1"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-13.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s2"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-9.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s3"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-2.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s4"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-15.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s5"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-5.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s6"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-11.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s7"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-7.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s8"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-3.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="zenterra-homepage-v2.html" class="nav-logo">Zenterra</a>
+  <ul class="nav-center">
+    <li><a href="zenterra-communities.html">Communities</a></li>
+    <li><a href="zenterra-about.html">About</a></li>
+    <li><a href="zenterra-homeowner-care.html">Homeowner Care</a></li>
+    <li><a href="zenterra-news.html">News &amp; Reviews</a></li>
+  </ul>
+  <div class="nav-right"><a href="zenterra-homepage-v2.html" class="nav-close">Close &nbsp;<span class="nav-close-x">✕</span></a></div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- ─── LEFT PANEL ─── -->
+  <div class="left-panel">
+    <div class="left-bg" style="background-image:url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-13.jpg');background-size:cover;background-position:center;opacity:0.15;"></div>
+    <div class="left-content">
+      <p class="left-eyebrow">Priority Access</p>
+      <h2>Be First.<br><em>Register Today.</em></h2>
+      <p class="desc">Join thousands of future homeowners who register with Zenterra to receive exclusive early access to floor plans, pricing, and pre-sale opportunities before public release.</p>
+
+      <div class="trust-list">
+        <div class="trust-item">
+          <div class="trust-icon">◈</div>
+          <div class="trust-text">
+            <h4>Priority Floor Plan Access</h4>
+            <p>See available suites and floor plans before they go public — and secure your preferred layout first.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">◇</div>
+          <div class="trust-text">
+            <h4>Exclusive Pricing</h4>
+            <p>Registered buyers receive early pricing information and may be eligible for pre-sale incentives.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">○</div>
+          <div class="trust-text">
+            <h4>Construction Updates</h4>
+            <p>Receive milestone updates, progress photos, and community news delivered straight to your inbox.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⬡</div>
+          <div class="trust-text">
+            <h4>No Obligation</h4>
+            <p>Registering is completely free and doesn't commit you to a purchase. Unsubscribe anytime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="left-stats">
+      <div class="left-stat">
+        <div class="left-stat-num">20+</div>
+        <div class="left-stat-label">Years Building</div>
+      </div>
+      <div class="left-stat">
+        <div class="left-stat-num">7</div>
+        <div class="left-stat-label">Active Communities</div>
+      </div>
+      <div class="left-stat">
+        <div class="left-stat-num">9×</div>
+        <div class="left-stat-label">Georgie Nominated</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── RIGHT PANEL — FORM ─── -->
+  <div class="right-panel">
+    <div class="form-container" id="form-container">
+
+      <!-- Form header (matching Polygon's centred title layout) -->
+      <div class="form-header">
+        <h1>Register</h1>
+        <p>Sign up to receive priority updates from Zenterra Developments.</p>
+      </div>
+
+      <form id="register-form" novalidate>
+
+        <!-- Row 1: First / Last name (Figma: two side-by-side inputs, 295px + 297px) -->
+        <div class="field-row">
+          <div class="field-group">
+            <input type="text" class="field-input" id="first-name" placeholder="First Name" autocomplete="given-name" required />
+            <span class="field-error" id="first-name-err">Please enter your first name.</span>
+          </div>
+          <div class="field-group">
+            <input type="text" class="field-input" id="last-name" placeholder="Last Name" autocomplete="family-name" required />
+            <span class="field-error" id="last-name-err">Please enter your last name.</span>
+          </div>
+        </div>
+
+        <!-- Row 2: Email / Postal Code -->
+        <div class="field-row">
+          <div class="field-group">
+            <input type="email" class="field-input" id="email" placeholder="Email Address" autocomplete="email" required />
+            <span class="field-error" id="email-err">Please enter a valid email address.</span>
+          </div>
+          <div class="field-group">
+            <input type="text" class="field-input" id="postal" placeholder="Postal Code" autocomplete="postal-code" />
+          </div>
+        </div>
+
+        <!-- Row 3: Phone / How did you hear -->
+        <div class="field-row">
+          <div class="field-group">
+            <input type="tel" class="field-input" id="phone" placeholder="Phone Number" autocomplete="tel" />
+          </div>
+          <div class="field-group">
+            <select class="field-select" id="source">
+              <option value="" disabled selected>How did you hear about us?</option>
+              <option>Online Search</option>
+              <option>Social Media</option>
+              <option>Friend or Family Referral</option>
+              <option>Realtor</option>
+              <option>Drive By / Signage</option>
+              <option>Newspaper / Magazine</option>
+              <option>Radio / Podcast</option>
+              <option>Previous Zenterra Homeowner</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- Communities I'm Interested In (matching Polygon's 3-column checkbox grid) -->
+        <div class="section-label">Communities I'm Interested In:</div>
+
+        <div class="community-grid">
+
+          <!-- Column 1: Surrey communities -->
+          <label class="check-item">
+            <input type="checkbox" name="community" value="king-crescent" />
+            <span class="check-label">
+              King + Crescent
+              <span class="community-location">South Surrey</span>
+              <span class="check-badge badge-selling">Selling</span>
+            </span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" name="community" value="city-corners" />
+            <span class="check-label">
+              City Corners
+              <span class="community-location">Surrey City Centre</span>
+              <span class="check-badge badge-selling">Selling</span>
+            </span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" name="community" value="the-commons" />
+            <span class="check-label">
+              The Commons
+              <span class="community-location">Willoughby, Langley</span>
+              <span class="check-badge badge-selling">Selling</span>
+            </span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" name="community" value="clayton-crest" />
+            <span class="check-label">
+              Clayton Crest
+              <span class="community-location">West Clayton, Surrey</span>
+              <span class="check-badge badge-soon">Coming Soon</span>
+            </span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" name="community" value="eden" />
+            <span class="check-label">
+              Eden
+              <span class="community-location">Langley</span>
+              <span class="check-badge badge-selling">Selling</span>
+            </span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" name="community" value="solana" />
+            <span class="check-label">
+              Solana
+              <span class="community-location">Langley</span>
+              <span class="check-badge badge-selling">Selling</span>
+            </span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" name="community" value="latimer-walk" />
+            <span class="check-label">
+              Latimer Walk
+              <span class="community-location">Langley</span>
+            </span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" name="community" value="future-langley" />
+            <span class="check-label">
+              New Langley Community
+              <span class="community-location">Langley</span>
+              <span class="check-badge badge-soon">Coming Soon</span>
+            </span>
+          </label>
+
+          <label class="check-item">
+            <input type="checkbox" name="community" value="general" />
+            <span class="check-label">
+              Any / All Communities
+              <span class="community-location">Notify me of anything new</span>
+            </span>
+          </label>
+
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- Home type preference -->
+        <div class="section-label">Home Type Preference:</div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px 16px;margin-bottom:24px;">
+          <label class="check-item">
+            <input type="checkbox" name="type" value="studio" />
+            <span class="check-label">Studio</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" name="type" value="1bed" />
+            <span class="check-label">1 Bedroom</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" name="type" value="2bed" />
+            <span class="check-label">2 Bedroom</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" name="type" value="3bed" />
+            <span class="check-label">3 Bedroom</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" name="type" value="townhome" />
+            <span class="check-label">Townhome</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" name="type" value="penthouse" />
+            <span class="check-label">Penthouse</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" name="type" value="not-sure" />
+            <span class="check-label">Not Sure Yet</span>
+          </label>
+        </div>
+
+        <hr class="form-divider" />
+
+        <!-- Realtor checkbox (matching Polygon) -->
+        <label class="single-check">
+          <input type="checkbox" id="is-realtor" />
+          <span class="single-check-label">I am a Realtor</span>
+        </label>
+
+        <!-- Consent checkbox (matching Polygon's long legal text) -->
+        <label class="single-check" style="margin-top:4px;">
+          <input type="checkbox" id="consent" required />
+          <span class="consent-text">
+            I agree to receive more information, which may be via electronic communication, about communities and events that may be of interest from Zenterra Developments and affiliated companies. You may withdraw your consent at any time by clicking unsubscribe on emails or texting "STOP" to text messages sent. For more information, please <a href="#">Contact Us</a>.
+          </span>
+        </label>
+        <span class="field-error" id="consent-err" style="display:none;margin-top:6px;">Please agree to the terms to continue.</span>
+
+        <!-- reCAPTCHA (visual placeholder — wire up real key in production) -->
+        <div class="recaptcha-wrap">
+          <div class="recaptcha-box">
+            <div class="recaptcha-check"></div>
+            <div class="recaptcha-text">I'm not a robot</div>
+            <div class="recaptcha-logo">
+              <div class="recaptcha-logo-icon"></div>
+              <div class="recaptcha-logo-text">reCAPTCHA<br>Privacy · Terms</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit (Figma: bg-black full-width button) -->
+        <button type="submit" class="btn-register">Register</button>
+
+        <p class="form-footnote">
+          Your information is kept private and will never be shared or sold.<br>
+          Questions? Call us at <a href="tel:7789452050">778-945-2050</a> or email <a href="/cdn-cgi/l/email-protection#ed84838b82ad97888399889f9f8cc38e8c"><span class="__cf_email__" data-cfemail="c0a9aea6af80baa5aeb4a5b2b2a1eea3a1">[email&#160;protected]</span></a>
+        </p>
+
+      </form>
+
+      <!-- Success state (shown after submit) -->
+      <div class="success-state" id="success-state">
+        <div class="success-icon">✓</div>
+        <h2>You're Registered</h2>
+        <p>Thank you for registering with Zenterra. We'll be in touch with priority updates for your selected communities.</p>
+        <a href="zenterra-communities.html" class="btn-back">Explore Communities →</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Form submission handler
+  document.getElementById('register-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let valid = true;
+
+    // First name
+    const fn = document.getElementById('first-name');
+    const fnErr = document.getElementById('first-name-err');
+    if (!fn.value.trim()) {
+      fn.classList.add('invalid'); fnErr.style.display = 'block'; valid = false;
+    } else {
+      fn.classList.remove('invalid'); fnErr.style.display = 'none';
+    }
+
+    // Last name
+    const ln = document.getElementById('last-name');
+    const lnErr = document.getElementById('last-name-err');
+    if (!ln.value.trim()) {
+      ln.classList.add('invalid'); lnErr.style.display = 'block'; valid = false;
+    } else {
+      ln.classList.remove('invalid'); lnErr.style.display = 'none';
+    }
+
+    // Email
+    const em = document.getElementById('email');
+    const emErr = document.getElementById('email-err');
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
+    if (!emailOk) {
+      em.classList.add('invalid'); emErr.style.display = 'block'; valid = false;
+    } else {
+      em.classList.remove('invalid'); emErr.style.display = 'none';
+    }
+
+    // Consent
+    const consent = document.getElementById('consent');
+    const consentErr = document.getElementById('consent-err');
+    if (!consent.checked) {
+      consentErr.style.display = 'block'; valid = false;
+    } else {
+      consentErr.style.display = 'none';
+    }
+
+    if (valid) {
+      // Hide form, show success
+      document.getElementById('register-form').style.display = 'none';
+      document.querySelector('.form-header').style.display = 'none';
+      document.getElementById('success-state').style.display = 'block';
+    }
+  });
+
+  // Live validation — clear errors on input
+  ['first-name', 'last-name', 'email'].forEach(id => {
+    document.getElementById(id).addEventListener('input', function() {
+      this.classList.remove('invalid');
+      document.getElementById(id + '-err

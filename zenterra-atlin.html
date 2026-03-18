@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlin at Clayton Crest — Zenterra Developments</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--cream:#F5F0E8;--charcoal:#1C1C1A;--stone:#8B8278;--warm-white:#FDFBF7;--gold:#B8955A;--gold-light:#D4B07A;--light-border:#E2DAD0;--nav-h:84px}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--warm-white);color:var(--charcoal);overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 56px;z-index:200;background:rgba(253,251,247,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--light-border)}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:var(--charcoal);text-decoration:none}
+    .nav-links{display:flex;align-items:center;gap:36px;list-style:none}
+    .nav-links a{font-size:13px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;opacity:.6;transition:opacity .2s}
+    .nav-links a:hover{opacity:1}
+    .nav-links a.active{opacity:1;color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px}
+    .nav-register{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-white);background:var(--charcoal);padding:11px 26px;text-decoration:none;transition:background .2s}
+    .nav-register:hover{background:var(--gold)}
+    .breadcrumb{padding:calc(var(--nav-h) + 20px) 56px 20px;display:flex;align-items:center;gap:10px;font-size:12px;font-weight:400;letter-spacing:.06em;color:var(--stone)}
+    .breadcrumb a{color:var(--stone);text-decoration:none;transition:color .2s}
+    .breadcrumb a:hover{color:var(--gold)}
+    .breadcrumb-sep{opacity:.4}
+    .breadcrumb-current{color:var(--charcoal);font-weight:500}
+    /* HERO SPLIT */
+    .hero-split{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;padding:0 56px 56px;align-items:start}
+    .gallery-main{width:100%;aspect-ratio:4/3;background:linear-gradient(160deg,#e4dbd0,#c0b5a4);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:rgba(139,130,120,.5);overflow:hidden;position:relative;cursor:pointer}
+    .gallery-badge{position:absolute;top:20px;left:20px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;background:var(--gold);color:var(--charcoal)}
+    .gallery-expand{position:absolute;bottom:16px;right:16px;background:rgba(28,28,26,.7);color:var(--warm-white);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:background .2s}
+    .gallery-expand:hover{background:var(--gold);color:var(--charcoal)}
+    .gallery-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+    .gallery-thumb{aspect-ratio:4/3;background:linear-gradient(160deg,#ddd6cc,#c4baaf);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;color:rgba(139,130,120,.4);cursor:pointer;transition:opacity .2s}
+    .gallery-thumb:hover{opacity:.75}
+    .gallery-thumb.more{background:var(--charcoal);color:rgba(253,251,247,.55);font-family:'DM Sans',sans-serif;font-size:13px;font-style:normal;font-weight:300}
+    .details-panel{padding:0 0 48px;position:sticky;top:calc(var(--nav-h) + 16px)}
+    .detail-eyebrow{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+    .detail-name{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,3.5vw,52px);font-weight:300;line-height:1.08;color:var(--charcoal);margin-bottom:6px}
+    .detail-location{font-size:13px;font-weight:300;color:var(--stone);margin-bottom:28px;letter-spacing:.04em}
+    .specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--light-border);margin-bottom:24px}
+    .spec-box{background:var(--warm-white);padding:14px 16px}
+    .spec-label{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-bottom:4px}
+    .spec-value{font-size:14px;font-weight:400;color:var(--charcoal)}
+    .pricing-block{background:var(--cream);border:1px solid var(--light-border);padding:18px;margin-bottom:18px}
+    .pricing-label{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-bottom:6px}
+    .pricing-value{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--charcoal);margin-bottom:4px}
+    .pricing-sub{font-size:11px;font-weight:300;color:var(--stone)}
+    .detail-ctas{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+    .btn-cta-primary{display:block;text-align:center;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);padding:15px;text-decoration:none;transition:background .2s}
+    .btn-cta-primary:hover{background:var(--gold-light)}
+    .btn-cta-secondary{display:block;text-align:center;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);border:1px solid var(--light-border);padding:14px;text-decoration:none;transition:border-color .2s}
+    .btn-cta-secondary:hover{border-color:var(--charcoal)}
+    .detail-phone{text-align:center;font-size:13px;font-weight:300;color:var(--stone)}
+    .detail-phone a{color:var(--charcoal);text-decoration:none;font-weight:400}
+    .detail-phone a:hover{color:var(--gold)}
+    /* SECTION TABS */
+    .section-tabs{position:sticky;top:var(--nav-h);z-index:150;background:rgba(253,251,247,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--light-border);padding:0 56px;display:flex;gap:0;overflow-x:auto}
+    .section-tab{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);text-decoration:none;padding:18px 22px;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s;flex-shrink:0}
+    .section-tab:hover{color:var(--charcoal)}
+    .section-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+    /* COMMON */
+    .section{padding:88px 56px}
+    .section-alt{background:var(--cream)}
+    .eyebrow{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+    h2.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3vw,46px);font-weight:300;line-height:1.15;color:var(--charcoal);margin-bottom:16px}
+    h2.section-title em{font-style:italic;color:var(--stone)}
+    .section-body{font-size:15px;font-weight:300;line-height:1.85;color:var(--stone)}
+    .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;gap:24px}
+    .btn-ghost{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;border-bottom:1px solid var(--charcoal);padding-bottom:2px;transition:color .2s,border-color .2s;flex-shrink:0}
+    .btn-ghost:hover{color:var(--gold);border-color:var(--gold)}
+    /* OVERVIEW */
+    .overview-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:72px;align-items:start}
+    .overview-copy p+p{margin-top:18px}
+    .overview-highlights{display:flex;flex-direction:column;gap:1px;background:var(--light-border)}
+    .highlight-row{display:flex;align-items:flex-start;gap:14px;background:var(--warm-white);padding:18px}
+    .highlight-icon{font-size:16px;color:var(--gold);flex-shrink:0;margin-top:2px}
+    .highlight-title{font-size:13px;font-weight:500;color:var(--charcoal);margin-bottom:3px}
+    .highlight-desc{font-size:13px;font-weight:300;color:var(--stone);line-height:1.55}
+    /* FLOORPLANS */
+    .floorplan-tabs{display:flex;gap:4px;margin-bottom:32px;flex-wrap:wrap}
+    .fp-tab{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:9px 20px;border:1px solid var(--light-border);background:transparent;color:var(--stone);cursor:pointer;transition:all .18s}
+    .fp-tab:hover{border-color:var(--charcoal);color:var(--charcoal)}
+    .fp-tab.active{border-color:var(--charcoal);background:var(--charcoal);color:var(--warm-white)}
+    .floorplan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--light-border)}
+    .floorplan-card{background:var(--warm-white);transition:background .2s;cursor:pointer}
+    .floorplan-card:hover{background:var(--cream)}
+    .fp-img{aspect-ratio:4/3;background:linear-gradient(160deg,#ede8e0,#d8d0c4);display:flex;align-items:center;justify-content:center;position:relative;flex-direction:column;gap:8px}
+    .fp-icon{font-size:28px;color:rgba(139,130,120,.25)}
+    .fp-label{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:rgba(139,130,120,.5)}
+    .fp-badge{position:absolute;top:12px;right:12px;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;background:var(--gold);color:var(--charcoal)}
+    .fp-copy{padding:18px 20px 22px}
+    .fp-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--charcoal);margin-bottom:6px}
+    .fp-details{display:flex;gap:12px;font-size:12px;font-weight:300;color:var(--stone);flex-wrap:wrap;margin-bottom:10px;align-items:center}
+    .fp-dot{width:3px;height:3px;border-radius:50%;background:var(--light-border);flex-shrink:0}
+    .fp-price{font-size:14px;font-weight:400;color:var(--charcoal)}
+    .fp-cta{display:inline-block;margin-top:10px;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:1px}
+    /* FEATURES */
+    .features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:48px}
+    .feature-category h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--charcoal);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--light-border)}
+    .feature-list{display:flex;flex-direction:column;gap:10px}
+    .feature-item{display:flex;gap:12px;align-items:flex-start;font-size:14px;font-weight:300;color:var(--stone);line-height:1.6}
+    .feature-check{color:var(--gold);font-size:12px;flex-shrink:0;margin-top:2px}
+    /* MAP */
+    .map-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}
+    .map-placeholder{aspect-ratio:4/3;background:linear-gradient(160deg,#e0dbd5,#c8c0b5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;border:1px solid var(--light-border)}
+    .map-pin{font-size:32px;color:var(--gold)}
+    .map-caption{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--stone);text-align:center;padding:0 24px}
+    .map-directions{position:absolute;bottom:16px;right:16px;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-white);background:var(--charcoal);padding:8px 16px;text-decoration:none;transition:background .2s}
+    .map-directions:hover{background:var(--gold);color:var(--charcoal)}
+    .nearby-list{display:flex;flex-direction:column;gap:1px;background:var(--light-border)}
+    .nearby-category{background:var(--warm-white)}
+    .nearby-cat-header{display:flex;align-items:center;gap:10px;padding:12px 16px 8px;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+    .nearby-items{padding:0 16px 12px;display:flex;flex-direction:column;gap:6px}
+    .nearby-item{display:flex;justify-content:space-between;font-size:13px;font-weight:300;color:var(--stone)}
+    .nearby-time{font-size:11px;color:var(--stone);opacity:.6;flex-shrink:0;padding-left:8px}
+    /* GALLERY GRID */
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+    .gallery-grid-item{background:linear-gradient(160deg,#e4dbd0,#c0b5a4);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:rgba(139,130,120,.4);cursor:pointer;overflow:hidden}
+    .gallery-grid-item:first-child{grid-column:1/3;grid-row:1/3;aspect-ratio:4/3}
+    .gallery-grid-item:not(:first-child){aspect-ratio:1}
+    .gallery-more{background:var(--charcoal)!important;color:rgba(253,251,247,.5)!important;font-family:'DM Sans',sans-serif!important;font-style:normal!important;font-size:14px!important;font-weight:300!important}
+    /* UPDATES TIMELINE */
+    .updates-timeline{display:flex;flex-direction:column;gap:0;margin-top:48px;position:relative}
+    .updates-timeline::before{content:'';position:absolute;left:108px;top:0;bottom:0;width:1px;background:var(--light-border)}
+    .update-item{display:grid;grid-template-columns:108px 1fr;gap:0;padding-bottom:40px;position:relative}
+    .update-item:last-child{padding-bottom:0}
+    .update-date{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);padding-top:4px;padding-right:24px;text-align:right}
+    .update-dot{position:absolute;left:103px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--warm-white);border:2px solid var(--gold);z-index:1}
+    .update-content{padding-left:32px}
+    .update-tag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;margin-bottom:8px;background:rgba(184,149,90,.12);color:var(--gold)}
+    .update-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--charcoal);margin-bottom:8px}
+    .update-desc{font-size:14px;font-weight:300;line-height:1.7;color:var(--stone)}
+    .update-img{margin-top:14px;height:150px;background:linear-gradient(160deg,#e4dbd0,#c8bfb0);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(139,130,120,.4);max-width:400px}
+    /* REGISTER CTA */
+    .register-cta{background:var(--charcoal);padding:88px 56px;display:flex;align-items:center;justify-content:space-between;gap:48px}
+    .register-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.2vw,48px);font-weight:300;color:var(--warm-white);line-height:1.15;margin-bottom:12px}
+    .register-cta h2 em{font-style:italic;color:var(--gold)}
+    .register-cta p{font-size:15px;font-weight:300;color:rgba(253,251,247,.45);line-height:1.7;max-width:420px}
+    .cta-actions{display:flex;gap:14px;flex-shrink:0;align-items:center;flex-wrap:wrap}
+    .btn-gold{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);padding:16px 32px;text-decoration:none;transition:background .2s}
+    .btn-gold:hover{background:var(--gold-light)}
+    .btn-outline-white{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(253,251,247,.6);border:1px solid rgba(255,255,255,.2);padding:15px 28px;text-decoration:none;transition:border-color .2s,color .2s}
+    .btn-outline-white:hover{border-color:rgba(255,255,255,.6);color:#fff}
+    /* RELATED */
+    .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px}
+    .related-card{cursor:pointer;overflow:hidden;border:1px solid var(--light-border)}
+    .related-img{aspect-ratio:3/2;background:linear-gradient(160deg,#e4dbd0,#c0b5a4);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:rgba(139,130,120,.4);transition:transform .6s cubic-bezier(.25,.46,.45,.94);overflow:hidden}
+    .related-card:hover .related-img{transform:scale(1.04)}
+    .related-copy{padding:18px 20px 22px;background:var(--warm-white)}
+    .related-type{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+    .related-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--charcoal);margin-bottom:4px}
+    .related-location{font-size:12px;font-weight:300;color:var(--stone);margin-bottom:12px}
+    .related-link{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;border-bottom:1px solid var(--charcoal);padding-bottom:1px;transition:color .2s,border-color .2s}
+    .related-link:hover{color:var(--gold);border-color:var(--gold)}
+    /* FOOTER */
+    footer{background:var(--charcoal);border-top:1px solid rgba(255,255,255,.06);padding:64px 56px 0}
+    .footer-inner{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:40px;padding-bottom:52px}
+    .footer-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:.15em;text-transform:uppercase;color:var(--warm-white);text-decoration:none;display:block;margin-bottom:16px}
+    .footer-brand p{font-size:13px;font-weight:300;color:rgba(253,251,247,.35);line-height:1.7;max-width:220px}
+    .footer-social{display:flex;gap:8px;margin-top:20px}
+    .social-btn{width:34px;height:34px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(253,251,247,.35);text-decoration:none;font-size:11px;font-weight:500;transition:border-color .2s,color .2s}
+    .social-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .footer-col h5{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--warm-white);margin-bottom:18px}
+    .footer-col ul{list-style:none}
+    .footer-col li+li{margin-top:10px}
+    .footer-col a{font-size:13px;font-weight:300;color:rgba(253,251,247,.38);text-decoration:none;transition:color .2s}
+    .footer-col a:hover{color:var(--gold)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding:22px 0;display:flex;justify-content:space-between}
+    .footer-bottom p{font-size:12px;font-weight:300;color:rgba(253,251,247,.22)}
+  </style>
+
+<style id="zenterra-real-images">
+/* ── Real Zenterra renderings injected from zenterra.ca ── */
+
+/* Homepage hero */
+.hero-img-block,
+.page-hero-image-inner,
+.philosophy-image,
+.hero-bg { position: relative; }
+
+/* Community card backgrounds */
+[data-img="kc"]       { background-image: url('https://zenterra.ca/wp-content/uploads/2026/02/KC_Website-Images.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="commons"]  { background-image: url('https://zenterra.ca/wp-content/uploads/2026/02/CM_Website-Images.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="latimer"]  { background-image: url('https://zenterra.ca/wp-content/uploads/2026/02/LW_Website-Images.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="eden"]     { background-image: url('https://zenterra.ca/wp-content/uploads/2026/03/Eden_Website_Home.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="solana"]   { background-image: url('https://zenterra.ca/wp-content/uploads/2024/05/solana_875x825.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="atlin"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2025/05/Atlin_HomePage_1.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="cc"]       { background-image: url('https://zenterra.ca/wp-content/uploads/2023/08/CC_Home_Page-scaled.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="cc2"]      { background-image: url('https://zenterra.ca/wp-content/uploads/2025/01/CC2_875x825.png') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s1"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-13.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s2"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-9.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s3"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-2.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s4"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-15.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s5"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-5.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s6"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-11.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s7"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-7.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+[data-img="kc-s8"]    { background-image: url('https://zenterra.ca/wp-content/uploads/2021/10/Slide-3.jpg') !important; background-size:cover; background-position:center; color:transparent; }
+</style>
+
+
+<style id="atlin-images">
+/* Atlin real images */
+.atlin-aerial   { background-image: url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/home/aerial.jpg') !important; background-size:cover !important; background-position:center !important; }
+.atlin-rooftop  { background-image: url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/amenities/roof.jpg') !important; background-size:cover !important; background-position:center !important; }
+.atlin-gym      { background-image: url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/amenities/gym.jpg') !important; background-size:cover !important; background-position:center !important; }
+.atlin-daycare  { background-image: url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/amenities/1.png') !important; background-size:cover !important; background-position:center !important; }
+.atlin-courtyard{ background-image: url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/amenities/courtyard.jpg') !important; background-size:cover !important; background-position:center !important; }
+.atlin-kitchen  { background-image: url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/kitchen-light.jpg') !important; background-size:cover !important; background-position:center !important; }
+.atlin-bath     { background-image: url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/bath-light.jpg') !important; background-size:cover !important; background-position:center !important; }
+.atlin-bedroom  { background-image: url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/slide1.jpg') !important; background-size:cover !important; background-position:center !important; }
+.atlin-int2     { background-image: url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/render2.jpg') !important; background-size:cover !important; background-position:center !important; }
+</style>
+
+  <style>
+    /* NAV OVERRIDE */
+    nav { display:flex !important; flex-direction:row !important; align-items:center !important; justify-content:space-between !important; position:fixed !important; top:0; left:0; right:0; height:84px; padding:0 56px; z-index:200; background:rgba(253,251,247,0.97) !important; border-bottom:1px solid #E2DAD0; }
+    .nav-logo { font-family:'Cormorant Garamond',serif !important; font-size:22px; font-weight:300; letter-spacing:0.15em; text-transform:uppercase; color:#1C1C1A !important; text-decoration:none !important; }
+    .nav-center { display:flex !important; flex-direction:row !important; list-style:none !important; margin:0 !important; padding:0 !important; gap:36px; align-items:center !important; }
+    .nav-center li { list-style:none !important; margin:0; padding:0; }
+    .nav-center li a { font-family:'DM Sans',sans-serif !important; font-size:13px !important; font-weight:400 !important; letter-spacing:0.08em !important; text-transform:uppercase !important; color:#1C1C1A !important; text-decoration:none !important; opacity:0.65; }
+    .nav-center li a:hover { opacity:1; }
+    .nav-right { display:flex !important; align-items:center !important; }
+    .nav-register { font-family:'DM Sans',sans-serif !important; font-size:12px !important; font-weight:500 !important; letter-spacing:0.12em !important; text-transform:uppercase !important; background:#1C1C1A !important; color:#FDFBF7 !important; padding:11px 26px !important; text-decoration:none !important; display:inline-block !important; }
+    .nav-register:hover { background:#B8955A !important; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="zenterra-homepage-v2.html" class="nav-logo">Zenterra</a>
+  <ul class="nav-center">
+    <li><a href="zenterra-communities.html" class="active">Communities</a></li><li><a href="zenterra-about.html">About</a></li><li><a href="zenterra-homeowner-care.html">Homeowner Care</a></li><li><a href="zenterra-news.html">News &amp; Reviews</a></li><li><a href="zenterra-about.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right"><a href="zenterra-register.html" class="nav-register">Register</a></div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="zenterra-homepage-v2.html">Home</a><span class="breadcrumb-sep">/</span>
+  <a href="zenterra-communities.html">Communities</a><span class="breadcrumb-sep">/</span>
+  <span class="breadcrumb-current">Atlin at Clayton Crest</span>
+</div>
+
+<!-- HERO SPLIT — Figma: large image left, details right -->
+<div class="hero-split">
+  <div>
+    <div class="gallery-main" style="background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/render.png');background-size:cover;background-position:center;color:transparent;">
+      King + Crescent — Exterior hero render
+      <span class="gallery-badge">Now Selling — Over 80% Sold</span>
+      <span class="gallery-expand">⊞ View All Photos</span>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="gallery-thumb" style="background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/kitchen-light.jpg');background-size:cover;background-position:center;color:transparent;">Lobby</div>
+      <div class="gallery-thumb" style="background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/render1.jpg');background-size:cover;background-position:center;color:transparent;">Kitchen</div>
+      <div class="gallery-thumb" style="background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/bath-light.jpg');background-size:cover;background-position:center;color:transparent;">Living Rm</div>
+      <div class="gallery-thumb more">+14 Photos</div>
+    </div>
+  </div>
+  <div class="details-panel">
+    <p class="detail-eyebrow">West Clayton, Surrey &nbsp;·&nbsp; Now Selling — Over 80% Sold</p>
+    <h1 class="detail-name">Atlin at Clayton Crest</h1>
+    <p class="detail-location">3438 146A Street, West Clayton, Surrey, BC</p>
+    <div class="specs-grid">
+      <div class="spec-box"><div class="spec-label">Home Type</div><div class="spec-value">Condos</div></div>
+      <div class="spec-box"><div class="spec-label">Bedrooms</div><div class="spec-value">1, 2 &amp; 3 Bed</div></div>
+      <div class="spec-box"><div class="spec-label">Sizes</div><div class="spec-value">From 400 SqFt</div></div>
+      <div class="spec-box"><div class="spec-label">Buildings</div><div class="spec-value">Phase 1</div></div>
+      <div class="spec-box"><div class="spec-label">Amenities</div><div class="spec-value">Rooftop + Daycare</div></div>
+      <div class="spec-box"><div class="spec-label">Possession</div><div class="spec-value">2026 / 2027</div></div>
+    </div>
+    <div class="pricing-block">
+      <div class="pricing-label">Starting From</div>
+      <div class="pricing-value">From the low $400s</div>
+      <div class="pricing-sub">Prices subject to change · HST applicable</div>
+    </div>
+    <div class="detail-ctas">
+      <a href="#floorplans" class="btn-cta-primary">View Floorplans</a>
+      <a href="zenterra-register.html" class="btn-cta-secondary">Register for Priority Access</a>
+    </div>
+    <p class="detail-phone">Sales: <a href="tel:6047792456">604-243-5439</a> &nbsp;·&nbsp; <a href="tel:6043376563">604-243-5439</a></p>
+  </div>
+</div>
+
+<!-- STICKY SECTION TABS -->
+<div class="section-tabs" id="section-tabs">
+  <a href="#overview"      class="section-tab active">Overview</a>
+  <a href="#floorplans"    class="section-tab">Floorplans</a>
+  <a href="#features"      class="section-tab">Features &amp; Finishes</a>
+  <a href="#neighbourhood" class="section-tab">Neighbourhood</a>
+  <a href="#gallery"       class="section-tab">Gallery</a>
+  <a href="#updates"       class="section-tab">Construction Updates</a>
+  <a href="#register" class="section-tab">Register</a>
+</div>
+
+<!-- OVERVIEW -->
+<section class="section" id="overview">
+  <div class="overview-grid">
+    <div class="overview-copy">
+      <p class="eyebrow">Overview</p>
+      <h2 class="section-title">Urban Access.<br><em>Valley Tranquility.</em></h2>
+      <p class="section-body">Atlin is the first phase of Clayton Crest — a brand new community by Zenterra Developments in West Clayton, Surrey. Studio, 1, 2 &amp; 3 bedroom condos designed for connected, modern living.</p>
+      <p class="section-body">Featuring a stunning rooftop patio with BBQs and valley views, on-site daycare with resident priority access, fully-equipped fitness centre, co-working space, and a beautifully landscaped community courtyard.</p>
+      <p class="section-body">Every suite features 9-foot ceilings, 8-inch wide-plank luxury vinyl flooring, sleek flat-panel cabinetry, quartz countertops, and Samsung stainless steel appliances — in two curated designer colour palettes.</p>
+    </div>
+    <div class="overview-highlights">
+      <div class="highlight-row"><span class="highlight-icon" style="font-size:0;display:inline-block;width:32px;height:32px;border-radius:50%;background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/amenities/roof.jpg');background-size:cover;vertical-align:middle;margin-right:4px;"></span><div><div class="highlight-title">Rooftop Patio + On-Site Daycare</div><div class="highlight-desc">Stunning rooftop with BBQs, fire pits &amp; lounge. On-site daycare with resident first access.</div></div></div>
+      <div class="highlight-row"><span class="highlight-icon" style="font-size:0;display:inline-block;width:32px;height:32px;border-radius:50%;background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/amenities/gym.jpg');background-size:cover;vertical-align:middle;margin-right:4px;"></span><div><div class="highlight-title">Fitness Centre &amp; Co-Working Space</div><div class="highlight-desc">Fully-equipped gym, lounge, games room, and a co-working patio for remote workdays.</div></div></div>
+      <div class="highlight-row"><span class="highlight-icon">○</span><div><div class="highlight-title">Future SkyTrain — Short Walk Away</div><div class="highlight-desc">Seamless city access with the future SkyTrain station just a short walk from your door.</div></div></div>
+      <div class="highlight-row"><span class="highlight-icon">⬡</span><div><div class="highlight-title">Award-Winning Developer</div><div class="highlight-desc">9× Georgie nominated for Multi-Family Builder of the Year. 20+ years of trusted quality.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOORPLANS -->
+<section class="section section-alt" id="floorplans">
+  <div class="section-header">
+    <div><p class="eyebrow">Floorplans</p><h2 class="section-title">Find Your <em>Perfect</em> Suite</h2></div>
+    <a href="#" class="btn-ghost">Download All Plans</a>
+  </div>
+  <div class="floorplan-tabs">
+    <button class="fp-tab active">All</button>
+    <button class="fp-tab">1 Bedroom</button>
+    <button class="fp-tab">2 Bedroom</button>
+    <button class="fp-tab">3 Bedroom</button>
+    <button class="fp-tab">Cedar Building</button>
+    <button class="fp-tab">Maple Building</button>
+  </div>
+  <div class="floorplan-grid">
+    <div class="floorplan-card">
+      <div class="fp-img"><div class="fp-icon">⬜</div><div class="fp-label">Plan Ca · 605 SqFt</div><span class="fp-badge">Available</span></div>
+      <div class="fp-copy"><div class="fp-name">Plan Ca — 1 Bed</div><div class="fp-details"><span>605 SqFt</span><span class="fp-dot"></span><span>1 Bed · 1 Bath</span><span class="fp-dot"></span><span>Cedar</span></div><div class="fp-price">From the low $400s</div><a href="#" class="fp-cta">View Floorplan →</a></div>
+    </div>
+    <div class="floorplan-card">
+      <div class="fp-img"><div class="fp-icon">⬜</div><div class="fp-label">Plan C5 · 665 SqFt</div><span class="fp-badge">Available</span></div>
+      <div class="fp-copy"><div class="fp-name">Plan C5 — 1 Bed</div><div class="fp-details"><span>665 SqFt</span><span class="fp-dot"></span><span>1 Bed · 1 Bath</span><span class="fp-dot"></span><span>Cedar</span></div><div class="fp-price">From the low $400s</div><a href="#" class="fp-cta">View Floorplan →</a></div>
+    </div>
+    <div class="floorplan-card">
+      <div class="fp-img"><div class="fp-icon">⬜</div><div class="fp-label">Plan F4 · 749 SqFt</div><span class="fp-badge" style="background:var(--charcoal);color:var(--warm-white)">Limited</span></div>
+      <div class="fp-copy"><div class="fp-name">Plan F4 — 1 Bed + Den</div><div class="fp-details"><span>749 SqFt</span><span class="fp-dot"></span><span>1 Bed + Den · 1 Bath</span><span class="fp-dot"></span><span>Maple</span></div><div class="fp-price">From the low $500s</div><a href="#" class="fp-cta">View Floorplan →</a></div>
+    </div>
+    <div class="floorplan-card">
+      <div class="fp-img"><div class="fp-icon">⬜</div><div class="fp-label">Plan G3 · 986 SqFt</div><span class="fp-badge">Available</span></div>
+      <div class="fp-copy"><div class="fp-name">Plan G3 — 2 Bed</div><div class="fp-details"><span>986 SqFt</span><span class="fp-dot"></span><span>2 Bed · 2 Bath</span><span class="fp-dot"></span><span>Cedar</span></div><div class="fp-price">From the mid $600s</div><a href="#" class="fp-cta">View Floorplan →</a></div>
+    </div>
+    <div class="floorplan-card">
+      <div class="fp-img"><div class="fp-icon">⬜</div><div class="fp-label">Plan J · 853 SqFt</div><span class="fp-badge">Available</span></div>
+      <div class="fp-copy"><div class="fp-name">Plan J — 2 Bed</div><div class="fp-details"><span>853 SqFt</span><span class="fp-dot"></span><span>2 Bed · 2 Bath</span><span class="fp-dot"></span><span>Maple</span></div><div class="fp-price">From the mid $600s</div><a href="#" class="fp-cta">View Floorplan →</a></div>
+    </div>
+    <div class="floorplan-card">
+      <div class="fp-img"><div class="fp-icon">⬜</div><div class="fp-label">Plan D1 · 1,157 SqFt</div><span class="fp-badge" style="background:#7a4a2a;color:#fff">Few Left</span></div>
+      <div class="fp-copy"><div class="fp-name">Plan D1 — 3 Bed</div><div class="fp-details"><span>1,157 SqFt</span><span class="fp-dot"></span><span>3 Bed · 2 Bath</span><span class="fp-dot"></span><span>Cedar</span></div><div class="fp-price">From the high $700s</div><a href="#" class="fp-cta">View Floorplan →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES & FINISHES -->
+<section class="section" id="features">
+  <div class="section-header">
+    <div><p class="eyebrow">Features &amp; Finishes</p><h2 class="section-title">The Zenterra <em>Standard</em></h2></div>
+    <a href="#" class="btn-ghost">Download Full List</a>
+  </div>
+  <div class="features-grid">
+    <div class="feature-category">
+      <h3>Flooring &amp; Ceilings</h3>
+      <div class="feature-list">
+        <div class="feature-item"><span class="feature-check">✦</span>8" wide plank luxury vinyl flooring in all living areas</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Plush carpeting throughout all bedrooms</div>
+        <div class="feature-item"><span class="feature-check">✦</span>9-foot ceilings throughout — airy and inviting</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Smooth finish ceilings in all rooms</div>
+      </div>
+    </div>
+    <div class="feature-category">
+      <h3>Kitchen</h3>
+      <div class="feature-list">
+        <div class="feature-item"><span class="feature-check">✦</span>Two designer colour schemes: Ash or Oak</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Ash: grey upper cabinetry with rich walnut below</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Oak: crisp white uppers with light oak below</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Quartz countertops throughout</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Royal Calacatta tile backsplash</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Integrated appliance package</div>
+      </div>
+    </div>
+    <div class="feature-category">
+      <h3>Bathrooms</h3>
+      <div class="feature-list">
+        <div class="feature-item"><span class="feature-check">✦</span>Large porcelain under-mount sinks</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Vanities with ample toiletry storage</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Frameless glass shower enclosures (primary bath)</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Designer fixtures and hardware throughout</div>
+      </div>
+    </div>
+    <div class="feature-category">
+      <h3>Building &amp; Technology</h3>
+      <div class="feature-list">
+        <div class="feature-item"><span class="feature-check">✦</span>Secure underground parking</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Full-size in-suite washer/dryer</div>
+        <div class="feature-item"><span class="feature-check">✦</span>Video surveillance and key fob access</div>
+        <div class="feature-item"><span class="feature-check">✦</span>EV charging rough-in in parking stalls</div>
+        <div class="feature-item"><span class="feature-check">✦</span>High-speed internet ready throughout</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEIGHBOURHOOD MAP -->
+<section class="section section-alt" id="neighbourhood">
+  <div class="section-header">
+    <div><p class="eyebrow">Neighbourhood</p><h2 class="section-title">South Surrey — <em>Everything</em> at Your Doorstep</h2></div>
+  </div>
+  <div class="map-grid">
+    <div class="map-placeholder">
+      <span class="map-pin">⬡</span>
+      <span class="map-caption">Atlin at Clayton Crest<br>3438 146A Street, West Clayton, Surrey, BC</span>
+      <a href="https://maps.google.com/?q=3438+146A+Street+South+Surrey+BC" target="_blank" class="map-directions">→ Get Directions</a>
+    </div>
+    <div class="nearby-list">
+      <div class="nearby-category">
+        <div class="nearby-cat-header">◈ Recreation</div>
+        <div class="nearby-items">
+          <div class="nearby-item"><span>South Surrey Athletic Park</span><span class="nearby-time">2 min</span></div>
+          <div class="nearby-item"><span>Morgan Creek Golf Course</span><span class="nearby-time">5 min</span></div>
+          <div class="nearby-item"><span>Crescent Beach</span><span class="nearby-time">8 min</span></div>
+        </div>
+      </div>
+      <div class="nearby-category">
+        <div class="nearby-cat-header">◇ Shopping</div>
+        <div class="nearby-items">
+          <div class="nearby-item"><span>Southpoint Mall</span><span class="nearby-time">3 min</span></div>
+          <div class="nearby-item"><span>Semiahmoo Shopping Centre</span><span class="nearby-time">5 min</span></div>
+          <div class="nearby-item"><span>The Shops at Morgan Crossing</span><span class="nearby-time">7 min</span></div>
+        </div>
+      </div>
+      <div class="nearby-category">
+        <div class="nearby-cat-header">○ Schools</div>
+        <div class="nearby-items">
+          <div class="nearby-item"><span>Semiahmoo Trail Elementary</span><span class="nearby-time">3 min</span></div>
+          <div class="nearby-item"><span>Elgin Park Secondary</span><span class="nearby-time">5 min</span></div>
+          <div class="nearby-item"><span>Semiahmoo Secondary</span><span class="nearby-time">6 min</span></div>
+        </div>
+      </div>
+      <div class="nearby-category">
+        <div class="nearby-cat-header">⬡ Transit &amp; Highway</div>
+        <div class="nearby-items">
+          <div class="nearby-item"><span>Bus Stop (146A St)</span><span class="nearby-time">1 min walk</span></div>
+          <div class="nearby-item"><span>Hwy 99 on-ramp</span><span class="nearby-time">4 min</span></div>
+          <div class="nearby-item"><span>US Border (Blaine)</span><span class="nearby-time">15 min</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" id="gallery">
+  <div class="section-header">
+    <div><p class="eyebrow">Photo Gallery</p><h2 class="section-title">See the <em>Vision</em></h2></div>
+    <a href="#" class="btn-ghost">View All Photos</a>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-grid-item featured" style="background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/home/render3.jpg');background-size:cover;background-position:center;color:transparent;">/div>
+    <div class="gallery-grid-item" style="background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/kitchen-light.jpg');background-size:cover;background-position:center;color:transparent;">Lobby</div>
+    <div class="gallery-grid-item" style="background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/bath-light.jpg');background-size:cover;background-position:center;color:transparent;">Kitchen — Ash</div>
+    <div class="gallery-grid-item" style="background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/render2.jpg');background-size:cover;background-position:center;color:transparent;">Kitchen — Oak</div>
+    <div class="gallery-grid-item" style="background-image:url('https://atlincondos.ca/wp-content/themes/atlin/assets/images/atlin/homes/slide1.jpg');background-size:cover;background-position:center;color:transparent;">Living Room</div>
+    <div class="gallery-grid-item gallery-more">+12 More Photos</div>
+  </div>
+</section>
+
+<!-- CONSTRUCTION UPDATES — New from sitemap -->
+<section class="section section-alt" id="updates">
+  <div class="section-header">
+    <div><p class="eyebrow">Exclusive to Zenterra.ca</p><h2 class="section-title">Construction <em>Updates</em></h2></div>
+    <a href="#" class="btn-ghost">Subscribe to Updates</a>
+  </div>
+  <div class="updates-timeline">
+    <div class="update-item">
+      <div class="update-date">Mar 2026</div>
+      <div class="update-dot"></div>
+      <div class="update-content">
+        <span class="update-tag">Milestone</span>
+        <div class="update-title">Maple Building — Structural Frame Complete</div>
+        <div class="update-desc">The structural frame has reached the top floor. Mechanical and electrical rough-in is underway on floors 3–8. Exterior cladding begins next month.</div>
+        <div class="update-img">March 2026 — site photography</div>
+      </div>
+    </div>
+    <div class="update-item">
+      <div class="update-date">Jan 2026</div>
+      <div class="update-dot"></div>
+      <div class="update-content">
+        <span class="update-tag">Progress</span>
+        <div class="update-title">Cedar Building — Floors 1–4 Finishes Installed</div>
+        <div class="update-desc">Interior finishing is complete on floors 1–4 of Cedar. Cabinetry, flooring, and fixture installation are ahead of schedule. Possession walkthroughs for early buyers are being scheduled.</div>
+      </div>
+    </div>
+    <div class="update-item">
+      <div class="update-date">Nov 2025</div>
+      <div class="update-dot"></div>
+      <div class="update-content">
+        <span class="update-tag">Milestone</span>
+        <div class="update-title">Amenity Level Construction Begins</div>
+        <div class="update-desc">Construction underway on the 9,700+ sq ft amenity podium — dining lounge, fitness centre, guest suites, and arcade room. Completion targeted Q2 2026.</div>
+        <div class="update-img">November 2025 — amenity level photography</div>
+      </div>
+    </div>
+    <div class="update-item">
+      <div class="update-date">Aug 2025</div>
+      <div class="update-dot"></div>
+      <div class="update-content">
+        <span class="update-tag">Milestone</span>
+        <div class="update-title">Foundation Complete — Both Buildings</div>
+        <div class="update-desc">Foundation and parkade construction complete across Cedar and Maple. Above-grade structural work is underway on both towers.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER CTA -->
+<section class="register-cta" id="register">
+  <div>
+    <h2>Register for<br><em>Atlin at Clayton Crest</em></h2>
+    <p>Get priority access to the latest floor plan releases, pricing updates, and exclusive pre-sale opportunities — before the public.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="#" class="btn-gold">Register Now</a>
+    <a href="tel:6047792456" class="btn-outline-white">Call 604-243-5439</a>
+  </div>
+</section>
+
+<!-- RELATED COMMUNITIES — Figma "Related products" card grid -->
+<section class="section">
+  <p class="eyebrow">Also From Zenterra</p>
+  <h2 class="section-title">Other <em>Communities</em></h2>
+  <div class="related-grid">
+    <div class="related-card">
+      <div class="related-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2023/08/CC_Home_Page-scaled.jpg');background-size:cover;background-position:center;color:transparent;">/div>
+      <div class="related-copy"><div class="related-type">Condos · Surrey City Centre</div><div class="related-name">City Corners</div><div class="related-location">Surrey City Centre, BC</div><a href="#" class="related-link">View Community →</a></div>
+    </div>
+    <div class="related-card">
+      <div class="related-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2026/02/CM_Website-Images.png');background-size:cover;background-position:center;color:transparent;">/div>
+      <div class="related-copy"><div class="related-type">Condos · Langley</div><div class="related-name">The Commons</div><div class="related-location">Willoughby, Langley</div><a href="#" class="related-link">View Community →</a></div>
+    </div>
+    <div class="related-card">
+      <div class="related-img" style="background-image:url('https://zenterra.ca/wp-content/uploads/2026/03/Eden_Website_Home.jpg');background-size:cover;background-position:center;color:transparent;">/div>
+      <div class="related-copy"><div class="related-type">Condos · Langley</div><div class="related-name">Eden</div><div class="related-location">Langley, BC</div><a href="#" class="related-link">View Community →</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="zenterra-homepage-v2.html" class="footer-logo">Zenterra</a>
+      <p>Building quality homes with purpose and integrity across Surrey and Langley, BC since 2000.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/ZenterraDevelopments" class="social-btn" target="_blank">f</a>
+        <a href="https://www.instagram.com/zenterra/" class="social-btn" target="_blank">ig</a>
+        <a href="https://www.linkedin.com/company/zenterra-developments-ltd" class="social-btn" target="_blank">in</a>
+        <a href="https://www.youtube.com/@ZenterraDevelopments" class="social-btn" target="_blank">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Communities</h5>
+      <ul>
+        <li><a href="zenterra-community-detail.html">King + Crescent</a></li>
+        <li><a href="zenterra-city-corners.html">City Corners</a></li>
+        <li><a href="zenterra-the-commons.html">The Commons</a></li>
+        <li><a href="zenterra-atlin.html">Atlin at Clayton Crest</a></li>
+        <li><a href="zenterra-bute.html">Bute at Clayton Crest</a></li>
+        <li><a href="zenterra-eden.html">Eden</a></li>
+        <li><a href="zenterra-solana.html">Solana</a></li>
+        <li><a href="zenterra-latimer-walk.html">Latimer Walk</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <ul>
+        <li><a href="zenterra-about.html#story">Our Story</a></li>
+        <li><a href="zenterra-about.html#values">Our Values</a></li>
+        <li><a href="zenterra-about.html#awards">Awards</a></li>
+        <li><a href="zenterra-about.html#community">Community Involvement</a></li>
+        <li><a href="zenterra-about.html">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Homeowner Care</h5>
+      <ul>
+        <li><a href="zenterra-homeowner-care.html#orientation">Orientation</a></li>
+        <li><a href="zenterra-homeowner-care.html#warranty">2-5-10 Warranty</a></li>
+        <li><a href="zenterra-homeowner-care.html#maintenance">Maintenance Tips</a></li>
+        <li><a href="zenterra-homeowner-care.html#portal">Homeowner Portal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="zenterra-about.html#contact">Contact Us</a></li>
+        <li><a href="zenterra-communities.html#sales-centres">Sales Centres</a></li>
+        <li><a href="zenterra-register.html">Register</a></li>
+        <li><a href="zenterra-news.html">News &amp; Reviews</a></li>
+        <li><a href="mailto:info@zenterra.ca">info@zenterra.ca</a></li>
+        <li><a href="tel:7789452050">778-945-2050</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Zenterra Developments Ltd. All rights reserved. &nbsp;·&nbsp; 216-2630 Croydon Drive, Surrey BC V3Z 6T3</p>
+    <p>Privacy Policy &nbsp;·&nbsp; Terms of Use</p>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  document.querySelectorAll('.fp-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.fp-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+  const sectionIds = ['overview','floorplans','features','neighbourhood','gallery','updates','register'];
+  const tabs = document.querySelectorAll('.section-tab');
+  window.addEventListener('scroll', () => {
+    let current = 'overview';
+    sectionIds.forEach(id => {
+      const el = d
